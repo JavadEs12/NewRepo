@@ -7,15 +7,20 @@
         public string Dest { get; set; }
         public double Cost { get; set; }
 
-        public static List<Arc> arcs = new List<Arc>();
-        public static Dictionary<string, List<Arc>> BackArcs = new Dictionary<string, List<Arc>>();
+        public List<Arc> arcs { get; set; }
+        public Dictionary<string, List<Arc>> BackArcs = new Dictionary<string, List<Arc>>();
 
-        public void NodeAssignment()
+        public Arc()
+        {
+
+        }
+
+        public void NodeAssignment(Node obj4)
         {
             foreach (Arc arc in arcs)
             {
-                if (!Node.NetworkNodes.ContainsKey(arc.Orig)) { NodesInitialization(arc.Orig); }
-                if (!Node.NetworkNodes.ContainsKey(arc.Dest)) { NodesInitialization(arc.Dest); }
+                if (!obj4.NetworkNodes.ContainsKey(arc.Orig)) { NodesInitialization(obj4, arc.Orig); }
+                if (!obj4.NetworkNodes.ContainsKey(arc.Dest)) { NodesInitialization(obj4, arc.Dest); }
 
                 if (!BackArcs.ContainsKey(arc.Dest))
                 {
@@ -29,11 +34,10 @@
             }
         }
 
-
-        public static Node NodesInitialization(string orig)
+        public static Node NodesInitialization(Node obj4, string orig)
         {
             Node node = new Node(orig, double.PositiveInfinity, " ");
-            Node.NetworkNodes.Add(orig, node);
+            obj4.NetworkNodes.Add(orig, node);
             return node;
         }
     }
