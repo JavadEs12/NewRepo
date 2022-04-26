@@ -29,6 +29,7 @@
             }
         }
 
+
         public static Node NodesInitialization(string orig)
         {
             Node node = new Node(orig, double.PositiveInfinity, " ");
