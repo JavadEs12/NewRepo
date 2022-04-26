@@ -6,7 +6,7 @@
         public double Cost { get; set; }
         public string Successor { get; set; }
 
-        public static Dictionary<string, Node> NetworkNodes = new Dictionary<string, Node>();
+        public Dictionary<string, Node> NetworkNodes = new Dictionary<string, Node>();
         public Node Parent;
         public Node Left;
         public Node Right;
@@ -26,5 +26,6 @@
         {
             Parent = parent;
         }
+        public Node() { }
     }
 }
