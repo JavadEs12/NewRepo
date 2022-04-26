@@ -2,9 +2,9 @@
 {
     public class Heap
     {
-        public Node root;
-        public Node pointer;
-        public int count;
+        public static Node root;
+        public static Node pointer;
+        public static int count;
         public Heap(Dictionary<string, Node> nodes)
         {
             count = 0;
@@ -14,11 +14,7 @@
             }
         }
 
-        public Heap()
-        {
-
-        }
-        public void Add(Node node)
+        public static void Add(Node node)
         {
             if (root == null)
             {
@@ -74,7 +70,7 @@
                 count++;
             }
         }
-        public Node Remove()
+        public static Node Remove()
         {
             Node output = root;
             pointer = root;
@@ -114,7 +110,7 @@
         }
 
 
-        private void Heapify()
+        private static void Heapify()
         {
             Node compare;
             pointer = root;

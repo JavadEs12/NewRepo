@@ -2,57 +2,56 @@
 {
     public class Search
     {
-        public string Origin { get; set; }
-        public string Destination { get; set; }
-        public string MainDestination { get; set; }
-
+        public static string Origin;
+        public static string Destination;
+        public static string MainDestination;
         Dictionary<string, Node> ExtractedNodes = new Dictionary<string, Node>();
-        Heap heap = new Heap();
-        public void HeapInitialization(Node node1)
+        Heap heap;
+        public void HeapInitialization()
         {
-            heap = new Heap(node1.NetworkNodes);
+            heap = new Heap(Node.NetworkNodes);
         }
 
-        public void UpdateNodesProperties(Node node1, Arc arc1)
+        public void UpdateNodesProperties()
         {
-            HeapInitialization(node1);
-            node1.NetworkNodes[Destination].Cost = 0;
-            heap.Add(node1.NetworkNodes[Destination]);
-            for (int i = 0; i < node1.NetworkNodes.Count; i++)
+            HeapInitialization();
+            Node.NetworkNodes[Destination].Cost = 0;
+            Heap.Add(Node.NetworkNodes[Destination]);
+            for (int i = 0; i < Node.NetworkNodes.Count; i++)
             {
-                List<Arc> backwardArcs = arc1.BackArcs[Destination];
+                List<Arc> backwardArcs = Arc.BackArcs[Destination];
                 foreach (Arc arc in backwardArcs)
                 {
-                    if (!(node1.NetworkNodes[arc.Orig].Cost <= node1.NetworkNodes[arc.Dest].Cost + arc.Cost))
+                    if (!(Node.NetworkNodes[arc.Orig].Cost <= Node.NetworkNodes[arc.Dest].Cost + arc.Cost))
                     {
-                        node1.NetworkNodes[arc.Orig].Cost = arc.Cost + node1.NetworkNodes[arc.Dest].Cost;
-                        node1.NetworkNodes[arc.Orig].Successor = arc.Dest;
-                        Node node = new Node(arc.Orig, arc.Cost + node1.NetworkNodes[arc.Dest].Cost);
-                        heap.Add(node);
+                        Node.NetworkNodes[arc.Orig].Cost = arc.Cost + Node.NetworkNodes[arc.Dest].Cost;
+                        Node.NetworkNodes[arc.Orig].Successor = arc.Dest;
+                        Node node = new Node(arc.Orig, arc.Cost + Node.NetworkNodes[arc.Dest].Cost);
+                        Heap.Add(node);
                     }
                 }
-                if (!ExtractedNodes.ContainsKey(heap.root.ID))
+                if (!ExtractedNodes.ContainsKey(Heap.root.ID))
                 {
-                    ExtractedNodes.Add(node1.NetworkNodes[heap.root.ID].ID, node1.NetworkNodes[heap.root.ID]);
+                    ExtractedNodes.Add(Node.NetworkNodes[Heap.root.ID].ID, Node.NetworkNodes[Heap.root.ID]);
                 }
 
-                if (ExtractedNodes.Count == node1.NetworkNodes.Count) { break; }
+                if (ExtractedNodes.Count == Node.NetworkNodes.Count) { break; }
                 while (true)
                 {
-                    Node des = heap.Remove();
+                    Node des = Heap.Remove();
                     if (!ExtractedNodes.ContainsKey(des.ID))
                     {
-                        Destination = node1.NetworkNodes[des.ID].ID;
+                        Destination = Node.NetworkNodes[des.ID].ID;
                         break;
                     }
                 }
             }
         }
-        public void ShortestPath(Node node1, Arc arc1)
+        public void ShortestPath()
         {
             try
             {
-                UpdateNodesProperties(node1, arc1);
+                UpdateNodesProperties();
                 List<string> ShortestPath = new List<string>();
                 ShortestPath.Add(Origin);
 
@@ -78,3 +77,4 @@
         }
     }
 }
+
