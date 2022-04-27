@@ -17,25 +17,25 @@ namespace ShortestPath.Test
         public void Heap_Constructor_Test()
         {
             Input();
-            Heap heap = new Heap(nodes);
+            HeapBuilder heap = new HeapBuilder(nodes);
             Assert.IsNotNull(heap);
         }
         [TestMethod]
         public void Heap_Add_Test()
         {
             Input();
-            Heap heap = new Heap(nodes);
-            Assert.AreEqual("3", Heap.root.ID);
-            Assert.AreEqual(2, Heap.root.Cost);
+            HeapBuilder heap = new HeapBuilder(nodes);
+            Assert.AreEqual("3", HeapBuilder.root.ID);
+            Assert.AreEqual(2, HeapBuilder.root.Cost);
 
         }
         [TestMethod]
         public void Heap_Remove_Test()
         {
             Input();
-            Heap heap = new Heap(nodes);
-            Heap.Remove();
-            Assert.AreEqual("2", Heap.root.ID);
+            HeapBuilder heap = new HeapBuilder(nodes);
+            HeapBuilder.Remove();
+            Assert.AreEqual("2", HeapBuilder.root.ID);
         }
 
     }

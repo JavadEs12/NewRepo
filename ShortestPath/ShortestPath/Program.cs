@@ -2,57 +2,66 @@
 
 namespace ShortestPath
 {
-    class Program
+    public class Program
     {
+        public static string Origin;
+        public static string Destination;
+
         static void Main(string[] args)
         {
-            Arc obj = new Arc();
-            Search obj2 = new Search();
+            List<Arc> arcs = Reading_Input_Data();
+            Network network = new Network();
+            NetworkBuilder networkBuilder = new NetworkBuilder();
+            networkBuilder.Network_Building(network, arcs);
 
-            Program obj3 = new Program();
-            obj3.InputData(obj2);
-            Node obj4 = new Node();
-            Implementation(obj, obj2, obj4);
+            (Origin, Destination) = UserInput();
+            Search search = new Search();
+            search.ShortestPath(network);
         }
-        static void Implementation(Arc obj, Search obj2, Node obj4)
+
+        private static List<Arc> Reading_Input_Data()
         {
-            obj.arcs = JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("D:/ShortestPath/ShortestPathInput.txt"));
-            obj.NodeAssignment(obj4);
-
-            obj2.ShortestPath(obj4, obj);
+            return JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("C:/Users/j.eslamibabaheidari/source/repos/JavadEs12/NewRepo/ShortestPath/ShortestPathInput.txt"));
         }
 
-        private void InputData(Search obj2)
+        private static (string, string) UserInput()
         {
             Console.WriteLine("Please choose your Origin-Destination couple\nYou are allowed to choose numbers between 1-6");
-            obj2.Origin = InputAccuracy(obj2);
-            obj2.Destination = InputAccuracy(obj2);
-            obj2.MainDestination = obj2.Destination;
+            Origin = InputAccuracy();
+            Destination = InputAccuracy();
+            return (Origin, Destination);
         }
 
-        private string InputAccuracy(Search obj2)
+        private static string InputAccuracy()
         {
             while (true)
             {
-                int input = Int16.Parse(Console.ReadLine());
-                if (obj2.Origin == null && input >= 1 && input <= 6)
+                try
                 {
-                    return input.ToString();
-                }
-                else if (obj2.Origin != null && input >= 1 && input <= 6)
-                {
-                    if (input.ToString() == obj2.Origin)
-                    {
-                        Console.WriteLine("Entered number is repeated, please try another number for destination");
-                    }
-                    else
+                    var input = Int16.Parse(Console.ReadLine());
+                    if (Origin == null && input >= 1 && input <= 6)
                     {
                         return input.ToString();
                     }
+                    else if (Origin != null && input >= 1 && input <= 6)
+                    {
+                        if (input.ToString() == Origin)
+                        {
+                            Console.WriteLine("Entered number is repeated, please try another number for destination");
+                        }
+                        else
+                        {
+                            return input.ToString();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong input data, Please enter a number between 1-6");
+                    }
                 }
-                else
+                catch
                 {
-                    Console.WriteLine("Wrong input data, Please enter a number between 1-6");
+                    Console.WriteLine("Please enter a valid number");
                 }
             }
         }
