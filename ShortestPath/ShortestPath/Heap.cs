@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShortestPath
+﻿namespace ShortestPath
 {
     public class Heap
     {
@@ -15,11 +9,6 @@ namespace ShortestPath
         public Heap Left;
         public Heap Right;
 
-        public Heap(string ID, double Cost, string Successor)
-        {
-            this.ID = ID;
-            this.Cost = Cost;
-        }
         public Heap(string id, double cost)
         {
             ID = id;
@@ -29,6 +18,5 @@ namespace ShortestPath
         {
             Parent = parent;
         }
-        public Heap() { }
     }
 }

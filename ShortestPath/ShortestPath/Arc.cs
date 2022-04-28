@@ -6,7 +6,5 @@
         public string Orig { get; set; }
         public string Dest { get; set; }
         public double Cost { get; set; }
-
-        public Arc() { }
     }
 }

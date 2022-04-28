@@ -4,48 +4,46 @@ namespace ShortestPath
 {
     public class Program
     {
-        public static string Origin;
-        public static string Destination;
-
         static void Main(string[] args)
         {
-            List<Arc> arcs = Reading_Input_Data();
+            List<Arc> arcs = ImportNetworkData();
             Network network = new Network();
             NetworkBuilder networkBuilder = new NetworkBuilder();
-            networkBuilder.Network_Building(network, arcs);
+            networkBuilder.BuildNetwork(network, arcs);
 
-            (Origin, Destination) = UserInput();
-            Search search = new Search();
-            search.ShortestPath(network);
+
+            (string Origin, string Destination) = ImportUserInput();
+            DijkstraAlgorithm search = new DijkstraAlgorithm();
+            search.FindShortestPath(network, Origin, Destination);
         }
 
-        private static List<Arc> Reading_Input_Data()
+        private static List<Arc> ImportNetworkData()
         {
-            return JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("C:/Users/j.eslamibabaheidari/source/repos/JavadEs12/NewRepo/ShortestPath/ShortestPathInput.txt"));
+            return JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("ShortestPathInput.txt"));
         }
 
-        private static (string, string) UserInput()
+        private static (string, string) ImportUserInput()
         {
             Console.WriteLine("Please choose your Origin-Destination couple\nYou are allowed to choose numbers between 1-6");
-            Origin = InputAccuracy();
-            Destination = InputAccuracy();
+            string Origin = CheckInputAccuracy();
+            string Destination = CheckInputAccuracy(Origin);
             return (Origin, Destination);
         }
 
-        private static string InputAccuracy()
+        private static string CheckInputAccuracy(string origin = null)
         {
             while (true)
             {
                 try
                 {
                     var input = Int16.Parse(Console.ReadLine());
-                    if (Origin == null && input >= 1 && input <= 6)
+                    if (origin == null && input >= 1 && input <= 6)
                     {
                         return input.ToString();
                     }
-                    else if (Origin != null && input >= 1 && input <= 6)
+                    else if (origin != null && input >= 1 && input <= 6)
                     {
-                        if (input.ToString() == Origin)
+                        if (input.ToString() == origin)
                         {
                             Console.WriteLine("Entered number is repeated, please try another number for destination");
                         }
