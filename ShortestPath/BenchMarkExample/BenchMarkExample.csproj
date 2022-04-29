@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShortestPath1\ShortestPath1.csproj" />
     <ProjectReference Include="..\ShortestPath\ShortestPath.csproj" />
   </ItemGroup>
 
