@@ -1,11 +1,11 @@
 ﻿namespace ShortestPath
 {
-    public class Heap
+    public class NodeHeap
     {
-        public HeapNode root;
-        public HeapNode pointer;
+        public Node root;
+        public Node pointer;
         public int count;
-        public Heap(Dictionary<string, Node> nodes)
+        public NodeHeap(Dictionary<string, Node> nodes)
         {
             count = 0;
             foreach (KeyValuePair<string, Node> node in nodes)
@@ -14,13 +14,15 @@
             }
         }
 
-        public Heap() { }
+        public NodeHeap()
+        {
 
+        }
         public void Add(Node node)
         {
             if (root == null)
             {
-                root = new HeapNode(node.ID, node.Cost);
+                root = new Node(node.ID, node.Cost);
                 count++;
             }
             else
@@ -33,7 +35,7 @@
                     {
                         if (pointer.Left == null)
                         {
-                            pointer.Left = new HeapNode(pointer); //Node(Node P) is a costructor which creates an empty Node with its Parent
+                            pointer.Left = new Node(pointer); //Node(Node P) is a costructor which creates an empty Node with its Parent
                         }
                         pointer = pointer.Left;
                     }
@@ -41,7 +43,7 @@
                     {
                         if (pointer.Right == null)
                         {
-                            pointer.Right = new HeapNode(pointer);
+                            pointer.Right = new Node(pointer);
                         }
                         pointer = pointer.Right;
                     }
@@ -72,10 +74,9 @@
                 count++;
             }
         }
-
         public Node Remove()
         {
-            HeapNode output = root;
+            Node output = root;
             pointer = root;
             string bitcount = Convert.ToString(count, 2);
             for (int i = 1; i < bitcount.Length; i++)
@@ -109,13 +110,13 @@
             {
                 root = null;
             }
-            Node node = new Node(output.ID, output.Cost);  //convert Heap to Node type
-            return node;
+            return output;
         }
+
 
         private void Heapify()
         {
-            HeapNode compare;
+            Node compare;
             pointer = root;
 
             while (true)
