@@ -7,14 +7,14 @@ namespace ShortestPath
         static void Main(string[] args)
         {
             Arc obj = new Arc();
-            Search obj2 = new Search();
+            DijkstraByNodeHeap obj2 = new DijkstraByNodeHeap();
 
             Program obj3 = new Program();
             obj3.InputData(obj2);
             Node obj4 = new Node();
             Implementation(obj, obj2, obj4);
         }
-        static void Implementation(Arc obj, Search obj2, Node obj4)
+        static void Implementation(Arc obj, DijkstraByNodeHeap obj2, Node obj4)
         {
             obj.arcs = JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("D:/ShortestPath/ShortestPathInput.txt"));
             obj.NodeAssignment(obj4);
@@ -22,7 +22,7 @@ namespace ShortestPath
             obj2.ShortestPath(obj4, obj);
         }
 
-        private void InputData(Search obj2)
+        private void InputData(DijkstraByNodeHeap obj2)
         {
             Console.WriteLine("Please choose your Origin-Destination couple\nYou are allowed to choose numbers between 1-6");
             obj2.Origin = InputAccuracy(obj2);
@@ -30,7 +30,7 @@ namespace ShortestPath
             obj2.MainDestination = obj2.Destination;
         }
 
-        private string InputAccuracy(Search obj2)
+        private string InputAccuracy(DijkstraByNodeHeap obj2)
         {
             while (true)
             {

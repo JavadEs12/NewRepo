@@ -3,7 +3,7 @@
 namespace ShortestPath.Test
 {
     [TestClass]
-    public class ShortestPathHeapTest
+    public class NodeHeapTest
     {
         Dictionary<string, Node> nodes = new Dictionary<string, Node>();
         public void Input()
@@ -17,14 +17,14 @@ namespace ShortestPath.Test
         public void Heap_Constructor_Test()
         {
             Input();
-            Heap heap = new Heap(nodes);
+            NodeHeap heap = new NodeHeap(nodes);
             Assert.IsNotNull(heap);
         }
         [TestMethod]
         public void Heap_Add_Test()
         {
             Input();
-            Heap heap = new Heap(nodes);
+            NodeHeap heap = new NodeHeap(nodes);
             Assert.AreEqual("3", heap.root.ID);
             Assert.AreEqual(2, heap.root.Cost);
 
@@ -33,7 +33,7 @@ namespace ShortestPath.Test
         public void Heap_Remove_Test()
         {
             Input();
-            Heap heap = new Heap(nodes);
+            NodeHeap heap = new NodeHeap(nodes);
             heap.Remove();
             Assert.AreEqual("2", heap.root.ID);
         }
