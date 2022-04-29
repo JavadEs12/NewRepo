@@ -7,10 +7,10 @@
         public string MainDestination { get; set; }
 
         Dictionary<string, Node> ExtractedNodes = new Dictionary<string, Node>();
-        Heap heap = new Heap();
+        NodeHeap heap = new NodeHeap();
         public void HeapInitialization(Node Obj4)
         {
-            heap = new Heap(Obj4.NetworkNodes);
+            heap = new NodeHeap(Obj4.NetworkNodes);
         }
 
         public void UpdateNodesProperties(Node obj4, Arc obj)

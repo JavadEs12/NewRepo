@@ -1,11 +1,11 @@
 ﻿namespace ShortestPath
 {
-    public class Heap
+    public class NodeHeap
     {
         public Node root;
         public Node pointer;
         public int count;
-        public Heap(Dictionary<string, Node> nodes)
+        public NodeHeap(Dictionary<string, Node> nodes)
         {
             count = 0;
             foreach (KeyValuePair<string, Node> node in nodes)
@@ -14,7 +14,7 @@
             }
         }
 
-        public Heap()
+        public NodeHeap()
         {
 
         }
