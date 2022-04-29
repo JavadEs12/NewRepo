@@ -3,7 +3,7 @@
 namespace ShortestPath.Test
 {
     [TestClass]
-    public class ShortestPath_Heap_Test
+    public class ShortestPathNodeHeapTest
     {
         Dictionary<string, Node> nodes = new Dictionary<string, Node>();
         public void Input()
