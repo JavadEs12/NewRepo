@@ -16,7 +16,7 @@ namespace ShortestPath
         }
         static void Implementation(Arc obj, DijkstraByNodeHeap obj2, Node obj4)
         {
-            obj.arcs = JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("D:/ShortestPath/ShortestPathInput.txt"));
+             obj.arcs = JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("C:/Users/j.eslamibabaheidari/source/repos/JavadEs12/-DijkstraNew-/ShortestPath/ShortestPathInput.txt"));
             obj.NodeAssignment(obj4);
 
             obj2.ShortestPath(obj4, obj);
