@@ -6,17 +6,26 @@
         public double Cost { get; set; }
         public string Successor { get; set; }
 
+        public Dictionary<string, Node> NetworkNodes = new Dictionary<string, Node>();
+        public Node Parent;
+        public Node Left;
+        public Node Right;
+
         public Node(string ID, double Cost, string Successor)
         {
             this.ID = ID;
             this.Cost = Cost;
             this.Successor = Successor;
         }
-
-        public Node(string ID, double Cost)
+        public Node(string id, double cost)
         {
-            this.ID = ID;
-            this.Cost = Cost;
+            ID = id;
+            Cost = cost;
         }
+        public Node(Node parent)
+        {
+            Parent = parent;
+        }
+        public Node() { }
     }
 }
