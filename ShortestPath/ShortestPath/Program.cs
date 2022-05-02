@@ -2,57 +2,64 @@
 
 namespace ShortestPath
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Arc obj = new Arc();
-            DijkstraByNodeHeap obj2 = new DijkstraByNodeHeap();
+            List<Arc> arcs = ImportNetworkData();
+            Network network = new Network();
+            NetworkBuilder networkBuilder = new NetworkBuilder();
+            networkBuilder.BuildNetwork(network, arcs);
 
-            Program obj3 = new Program();
-            obj3.InputData(obj2);
-            Node obj4 = new Node();
-            Implementation(obj, obj2, obj4);
+
+            (string Origin, string Destination) = ImportUserInput();
+            DijkstraAlgorithm search = new DijkstraAlgorithm();
+            search.FindShortestPath(network, Origin, Destination);
         }
-        static void Implementation(Arc obj, DijkstraByNodeHeap obj2, Node obj4)
+
+        private static List<Arc> ImportNetworkData()
         {
-             obj.arcs = JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("C:/Users/j.eslamibabaheidari/source/repos/JavadEs12/-DijkstraNew-/ShortestPath/ShortestPathInput.txt"));
-            obj.NodeAssignment(obj4);
-
-            obj2.ShortestPath(obj4, obj);
+            return JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("ShortestPathInput.txt"));
         }
 
-        private void InputData(DijkstraByNodeHeap obj2)
+        private static (string, string) ImportUserInput()
         {
             Console.WriteLine("Please choose your Origin-Destination couple\nYou are allowed to choose numbers between 1-6");
-            obj2.Origin = InputAccuracy(obj2);
-            obj2.Destination = InputAccuracy(obj2);
-            obj2.MainDestination = obj2.Destination;
+            string Origin = CheckInputAccuracy();
+            string Destination = CheckInputAccuracy(Origin);
+            return (Origin, Destination);
         }
 
-        private string InputAccuracy(DijkstraByNodeHeap obj2)
+        private static string CheckInputAccuracy(string origin = null)
         {
             while (true)
             {
-                int input = Int16.Parse(Console.ReadLine());
-                if (obj2.Origin == null && input >= 1 && input <= 6)
+                try
                 {
-                    return input.ToString();
-                }
-                else if (obj2.Origin != null && input >= 1 && input <= 6)
-                {
-                    if (input.ToString() == obj2.Origin)
-                    {
-                        Console.WriteLine("Entered number is repeated, please try another number for destination");
-                    }
-                    else
+                    var input = Int16.Parse(Console.ReadLine());
+                    if (origin == null && input >= 1 && input <= 6)
                     {
                         return input.ToString();
                     }
+                    else if (origin != null && input >= 1 && input <= 6)
+                    {
+                        if (input.ToString() == origin)
+                        {
+                            Console.WriteLine("Entered number is repeated, please try another number for destination");
+                        }
+                        else
+                        {
+                            return input.ToString();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong input data, Please enter a number between 1-6");
+                    }
                 }
-                else
+                catch
                 {
-                    Console.WriteLine("Wrong input data, Please enter a number between 1-6");
+                    Console.WriteLine("Please enter a valid number");
                 }
             }
         }

@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\ShortestPathInput.txt" Link="ShortestPathInput.txt" />
+    <Content Include="..\ShortestPathInput.txt" Link="ShortestPathInput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
