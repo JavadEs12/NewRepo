@@ -9,10 +9,7 @@ namespace ShortestPath
 {
     public class ArrayHeap
     {
-        public ArrayList Heap = new ArrayList();
-        private Node Root;
-        private Node Child;
-        private Node Parent;
+        public List<Node> Heap = new List<Node>();
         private int count;
 
         public ArrayHeap(Dictionary<string, Node> nodes)
@@ -39,20 +36,55 @@ namespace ShortestPath
                 int pointer = count - 1;
                 while (true)
                 {
-                    Child = (Node)Heap[pointer];
-                    Parent = (Node)Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
+                    Node Child = Heap[pointer];
+                    Node Parent = Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
                     Node comparer;
-                    if (Child.Cost <= Parent.Cost)
+                    if (Child.Cost > Parent.Cost)
                     {
                         comparer = Child;
                         Heap[pointer] = Heap[Math.Abs((pointer) / 2)];
                         Heap[Math.Abs((pointer) / 2)] = comparer;
                     }
                     pointer = Math.Abs((pointer) / 2);
-                    if(pointer == 0) { break; }
+                    if (pointer == 0) { break; }
                 }
             }
+        }
+        public void RemoveRoot()
+        {
+            Node Root = Heap[0];
+            Heap[0] = Heap[count - 1];
+            count--;
+            PerculateDown();
+        }
 
+        private void PerculateDown()
+        {
+            int pointer = 0;
+            while (true)
+            {
+                Node Parent = Heap[pointer];
+                Node LChild = Heap[2 * pointer + 1];
+                Node RChild = Heap[2 * pointer + 2];
+
+                if (LChild.Cost > RChild.Cost)
+                {
+                    SubstituteParentByChild(pointer,(2 * pointer + 2));
+                    pointer = 2 * pointer + 2;
+                }
+                else
+                {
+                    SubstituteParentByChild(pointer, (2 * pointer + 1));
+                    pointer = 2 * pointer + 1;
+                }
+
+            }
+        }
+        private void SubstituteParentByChild(int parentIndex, int childIndex)
+        {
+            Node comparer = Heap[parentIndex]; 
+            Heap[parentIndex] = Heap[childIndex];
+            Heap[childIndex] = comparer;
         }
     }
 }
