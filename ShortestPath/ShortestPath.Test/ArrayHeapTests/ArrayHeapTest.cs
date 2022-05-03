@@ -31,13 +31,13 @@ namespace ShortestPath.Test
             Assert.AreEqual(2, node.Cost);
         }
         [TestMethod]
-        public void RemoveRootTest()
+        public void RemoveTest()
         {
             Input();
             ArrayHeap heap = new ArrayHeap(nodes);
-            Node Root = heap.RemoveRoot();
+            Node Root = heap.Remove();
             Assert.AreEqual(2, Root.Cost);
-            Node Root1 = heap.RemoveRoot();
+            Node Root1 = heap.Remove();
             Assert.AreEqual(10, Root1.Cost);
         }
     }

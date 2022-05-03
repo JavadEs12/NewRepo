@@ -50,7 +50,7 @@ namespace ShortestPath
                 }
             }
         }
-        public Node RemoveRoot()
+        public Node Remove()
         {
             Node Root = Heap[0];
             Heap[0] = Heap[count - 1];
