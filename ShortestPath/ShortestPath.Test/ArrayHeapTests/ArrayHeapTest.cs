@@ -27,8 +27,18 @@ namespace ShortestPath.Test
 
             Input();
             ArrayHeap heap = new ArrayHeap(nodes);
-            Node node = (Node)heap.Heap[0];
-            Assert.AreEqual(2, node.Cost);  //checks does it properly perculate up after node insertion or not
+            Node node = heap.Heap[0];
+            Assert.AreEqual(2, node.Cost);
+        }
+        [TestMethod]
+        public void RemoveRootTest()
+        {
+            Input();
+            ArrayHeap heap = new ArrayHeap(nodes);
+            Node Root = heap.RemoveRoot();
+            Assert.AreEqual(2, Root.Cost);
+            Node Root1 = heap.RemoveRoot();
+            Assert.AreEqual(10, Root1.Cost);
         }
     }
 }

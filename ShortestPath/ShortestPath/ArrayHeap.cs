@@ -39,7 +39,7 @@ namespace ShortestPath
                     Node Child = Heap[pointer];
                     Node Parent = Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
                     Node comparer;
-                    if (Child.Cost > Parent.Cost)
+                    if (Child.Cost < Parent.Cost)
                     {
                         comparer = Child;
                         Heap[pointer] = Heap[Math.Abs((pointer) / 2)];
@@ -50,12 +50,14 @@ namespace ShortestPath
                 }
             }
         }
-        public void RemoveRoot()
+        public Node RemoveRoot()
         {
             Node Root = Heap[0];
             Heap[0] = Heap[count - 1];
+            Heap.RemoveAt(count - 1);
             count--;
             PerculateDown();
+            return Root;
         }
 
         private void PerculateDown()
@@ -63,26 +65,42 @@ namespace ShortestPath
             int pointer = 0;
             while (true)
             {
+                if (Heap.Count == 0) { break; }
+
                 Node Parent = Heap[pointer];
-                Node LChild = Heap[2 * pointer + 1];
-                Node RChild = Heap[2 * pointer + 2];
+                Node LChild = null;
+                Node RChild = null;
 
-                if (LChild.Cost > RChild.Cost)
+                if ((2 * pointer + 1 <= count - 1)) { LChild = Heap[2 * pointer + 1]; }
+                if ((2 * pointer + 2 <= count - 1)) { RChild = Heap[2 * pointer + 2]; }
+               
+                if (LChild == null) { break; }
+                if (RChild == null)
                 {
-                    SubstituteParentByChild(pointer,(2 * pointer + 2));
-                    pointer = 2 * pointer + 2;
+                    if (Parent.Cost > LChild.Cost)
+                    {
+                        SubstituteParentByChild(pointer, (2 * pointer + 1));
+                    }
+                    break;
                 }
-                else
+                else if (Parent.Cost > LChild.Cost || Parent.Cost > RChild.Cost)
                 {
-                    SubstituteParentByChild(pointer, (2 * pointer + 1));
-                    pointer = 2 * pointer + 1;
+                    if (LChild.Cost < RChild.Cost)
+                    {
+                        SubstituteParentByChild(pointer, (2 * pointer + 1));
+                        pointer = 2 * pointer + 1;
+                    }
+                    else
+                    {
+                        SubstituteParentByChild(pointer, (2 * pointer + 2));
+                        pointer = 2 * pointer + 2;
+                    }
                 }
-
             }
         }
         private void SubstituteParentByChild(int parentIndex, int childIndex)
         {
-            Node comparer = Heap[parentIndex]; 
+            Node comparer = Heap[parentIndex];
             Heap[parentIndex] = Heap[childIndex];
             Heap[childIndex] = comparer;
         }
