@@ -17,10 +17,10 @@ namespace ShortestPath
             count = 0;
             foreach (KeyValuePair<string, Node> node in nodes)
             {
-                AddNewNode(node.Value);
+                Add(node.Value);
             }
         }
-        public void AddNewNode(Node node)
+        public void Add(Node node)
         {
             Heap.Add(node);
             count++;

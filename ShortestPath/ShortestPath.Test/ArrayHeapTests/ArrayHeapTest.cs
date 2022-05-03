@@ -22,7 +22,7 @@ namespace ShortestPath.Test
             Assert.IsNotNull(heap.Heap);
         }
         [TestMethod]
-        public void AddNewNodeTest()
+        public void AddTest()
         {
 
             Input();
