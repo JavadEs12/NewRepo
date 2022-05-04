@@ -5,6 +5,8 @@
         public HeapNode root;
         public HeapNode pointer;
         public int count;
+        public Node Root => new Node(root.ID, root.Cost);
+
 
         public Heap(Dictionary<string, Node> nodes)
         {

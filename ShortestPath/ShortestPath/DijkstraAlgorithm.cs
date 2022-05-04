@@ -3,7 +3,12 @@
     public class DijkstraAlgorithm
     {
         public Dictionary<string, Node> ExtractedNodes = new Dictionary<string, Node>();
-        public Heap heap = new Heap();
+        public IHeap heap;
+
+        public DijkstraAlgorithm(HeapFactory factory)
+        {
+            heap = factory.GetHeap();
+        }
 
         public void FindShortestPath(Network network, string origin, string destination)
         {
@@ -53,9 +58,9 @@
                         heap.Add(node);
                     }
                 }
-                if (!ExtractedNodes.ContainsKey(heap.root.ID))
+                if (!ExtractedNodes.ContainsKey(heap.Root.ID))
                 {
-                    ExtractedNodes.Add(network.NetworkNodes[heap.root.ID].ID, network.NetworkNodes[heap.root.ID]);
+                    ExtractedNodes.Add(network.NetworkNodes[heap.Root.ID].ID, network.NetworkNodes[heap.Root.ID]);
                 }
 
                 if (ExtractedNodes.Count == network.NetworkNodes.Count) { break; }

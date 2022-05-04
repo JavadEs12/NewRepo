@@ -10,5 +10,6 @@ namespace ShortestPath
     {
         public void Add(Node node);
         public Node Remove();
+        public Node Root {get;}
     }
 }

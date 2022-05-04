@@ -12,6 +12,8 @@ namespace ShortestPath
         public List<Node> Heap = new List<Node>();
         private int count;
 
+        public Node Root => Heap[0];
+
         public ArrayHeap(Dictionary<string, Node> nodes)
         {
             count = 0;
@@ -20,6 +22,11 @@ namespace ShortestPath
                 Add(node.Value);
             }
         }
+
+        public ArrayHeap()
+        {
+        }
+
         public void Add(Node node)
         {
             Heap.Add(node);
