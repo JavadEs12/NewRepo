@@ -5,7 +5,6 @@
         public void BuildNetwork(Network network, List<Arc> arcs)
         {
             AssignArcs(network, arcs);
-            InitializeHeap(network);
         }
 
         private void AssignArcs(Network network, List<Arc> arcs)
@@ -46,11 +45,6 @@
             {
                 network.NetworkNodesBackArcs[arc.Dest].Add(arc);
             }
-        }
-
-        private void InitializeHeap(Network network)
-        {
-            network.heap = new Heap(network.NetworkNodes);
         }
     }
 }

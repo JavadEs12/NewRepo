@@ -2,10 +2,14 @@
 {
     public class DijkstraAlgorithm
     {
+        public Dictionary<string, Node> ExtractedNodes = new Dictionary<string, Node>();
+        public Heap heap = new Heap();
+
         public void FindShortestPath(Network network, string origin, string destination)
         {
             try
             {
+                InitializeHeap(network);
                 UpdateNodesProperties(network, destination);
                 List<string> ShortestPath = new List<string>();
                 ShortestPath.Add(origin);
@@ -13,7 +17,7 @@
 
                 while (true)
                 {
-                    var FollowingNode = network.ExtractedNodes[InitialNode].Successor;
+                    var FollowingNode = ExtractedNodes[InitialNode].Successor;
                     InitialNode = FollowingNode;
                     ShortestPath.Add(FollowingNode);
                     if (InitialNode == destination) { break; }
@@ -26,11 +30,16 @@
             }
         }
 
+        private void InitializeHeap(Network network)
+        {
+            heap = new Heap(network.NetworkNodes);
+        }
+
         public void UpdateNodesProperties(Network network, string destination)
         {
             string tempDestination = destination;
             network.NetworkNodes[tempDestination].Cost = 0;
-            network.heap.Add(network.NetworkNodes[tempDestination]);
+            heap.Add(network.NetworkNodes[tempDestination]);
             for (int i = 0; i < network.NetworkNodes.Count; i++)
             {
                 List<Arc> backwardArcs = network.NetworkNodesBackArcs[tempDestination];
@@ -41,19 +50,19 @@
                         network.NetworkNodes[arc.Orig].Cost = arc.Cost + network.NetworkNodes[arc.Dest].Cost;
                         network.NetworkNodes[arc.Orig].Successor = arc.Dest;
                         Node node = new Node(arc.Orig, arc.Cost + network.NetworkNodes[arc.Dest].Cost);
-                        network.heap.Add(node);
+                        heap.Add(node);
                     }
                 }
-                if (!network.ExtractedNodes.ContainsKey(network.heap.root.ID))
+                if (!ExtractedNodes.ContainsKey(heap.root.ID))
                 {
-                    network.ExtractedNodes.Add(network.NetworkNodes[network.heap.root.ID].ID, network.NetworkNodes[network.heap.root.ID]);
+                    ExtractedNodes.Add(network.NetworkNodes[heap.root.ID].ID, network.NetworkNodes[heap.root.ID]);
                 }
 
-                if (network.ExtractedNodes.Count == network.NetworkNodes.Count) { break; }
+                if (ExtractedNodes.Count == network.NetworkNodes.Count) { break; }
                 while (true)
                 {
-                    Node Des = network.heap.Remove();
-                    if (!network.ExtractedNodes.ContainsKey(Des.ID))
+                    Node Des = heap.Remove();
+                    if (!ExtractedNodes.ContainsKey(Des.ID))
                     {
                         tempDestination = network.NetworkNodes[Des.ID].ID;
                         break;
@@ -69,7 +78,6 @@
             {
                 Console.WriteLine(node);
             }
-
         }
     }
 }
