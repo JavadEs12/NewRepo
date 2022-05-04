@@ -7,9 +7,8 @@ namespace ShortestPath
         static void Main(string[] args)
         {
             List<Arc> arcs = ImportNetworkData();
-            Network network = new Network();
-            NetworkBuilder networkBuilder = new NetworkBuilder();
-            networkBuilder.BuildNetwork(network, arcs);
+            NetworkBuilder networkAssigner = new NetworkBuilder();
+            Network network = networkAssigner.BuildNetwork(arcs);
 
 
             (string Origin, string Destination) = ImportUserInput();

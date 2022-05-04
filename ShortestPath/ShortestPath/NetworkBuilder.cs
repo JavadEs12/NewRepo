@@ -2,7 +2,14 @@
 {
     public class NetworkBuilder
     {
-        public void BuildNetwork(Network network, List<Arc> arcs)
+        public Network BuildNetwork(List<Arc> arcs)
+        {
+            Network network = new Network();
+            AssignNetwork(network, arcs);
+            return network;
+        }
+
+        private void AssignNetwork(Network network, List<Arc> arcs)
         {
             AssignArcs(network, arcs);
         }
