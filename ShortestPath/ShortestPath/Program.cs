@@ -7,13 +7,13 @@ namespace ShortestPath
         static void Main(string[] args)
         {
             List<Arc> arcs = ImportNetworkData();
-            NetworkBuilder networkAssigner = new NetworkBuilder();
-            Network network = networkAssigner.BuildNetwork(arcs);
+            NetworkBuilder networkBuilder = new NetworkBuilder();
+            Network network = networkBuilder.BuildNetwork(arcs);
 
 
             (string Origin, string Destination) = ImportUserInput();
-            DijkstraAlgorithm search = new DijkstraAlgorithm();
-            search.FindShortestPath(network, Origin, Destination);
+            DijkstraAlgorithm Dijkstra = new DijkstraAlgorithm();
+            Dijkstra.FindShortestPath(network, Origin, Destination);
         }
 
         private static List<Arc> ImportNetworkData()
