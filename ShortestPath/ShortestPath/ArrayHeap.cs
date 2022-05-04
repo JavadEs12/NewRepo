@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShortestPath
 {
-    public class ArrayHeap
+    public class ArrayHeap : IHeap
     {
         public List<Node> Heap = new List<Node>();
         private int count;

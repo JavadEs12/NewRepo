@@ -1,10 +1,11 @@
 ﻿namespace ShortestPath
 {
-    public class Heap
+    public class Heap : IHeap
     {
         public HeapNode root;
         public HeapNode pointer;
         public int count;
+
         public Heap(Dictionary<string, Node> nodes)
         {
             count = 0;
