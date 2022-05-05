@@ -36,7 +36,7 @@ namespace ShortestPath
 
         private void PerculateUp()
         {
-            if (Heap.Count == 0) { return; }
+            if (count == 0) { return; }
 
             else
             {
@@ -45,12 +45,9 @@ namespace ShortestPath
                 {
                     Node Child = Heap[pointer];
                     Node Parent = Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
-                    Node comparer;
                     if (Child.Cost < Parent.Cost)
                     {
-                        comparer = Child;
-                        Heap[pointer] = Heap[Math.Abs((pointer) / 2)];
-                        Heap[Math.Abs((pointer) / 2)] = comparer;
+                        SubstituteParentByChild(Math.Abs((pointer) / 2), pointer);
                     }
                     pointer = Math.Abs((pointer) / 2);
                     if (pointer == 0) { break; }

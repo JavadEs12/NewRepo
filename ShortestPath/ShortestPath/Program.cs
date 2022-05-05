@@ -12,7 +12,7 @@ namespace ShortestPath
 
 
             (string Origin, string Destination) = ImportUserInput();
-            DijkstraAlgorithm Dijkstra = new DijkstraAlgorithm(new HeapFactory(HeapFactory.HeapType.Heap)); // Type of heap for heap-interface is assigned here
+            DijkstraAlgorithm Dijkstra = new DijkstraAlgorithm(new HeapFactory(HeapFactory.HeapType.ArrayHeap)); // Type of heap for heap-interface is assigned here
             Dijkstra.FindShortestPath(network, Origin, Destination);
         }
 
