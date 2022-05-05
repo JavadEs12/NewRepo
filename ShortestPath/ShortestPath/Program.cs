@@ -6,7 +6,9 @@ namespace ShortestPath
     {
         static void Main(string[] args)
         {
-            List<Arc> arcs = ImportNetworkData();
+            string input = File.ReadAllText("ShortestPathInput.txt");
+            Deserializer deserializer = new DeserializeRawString(input);
+            List<Arc> arcs = deserializer.Deserialize();
             NetworkBuilder networkBuilder = new NetworkBuilder();
             Network network = networkBuilder.BuildNetwork(arcs);
 
@@ -18,7 +20,8 @@ namespace ShortestPath
 
         private static List<Arc> ImportNetworkData()
         {
-            return JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("ShortestPathInput.txt"));
+            string input = File.ReadAllText("ShortestPathInput.txt");
+            return JsonConvert.DeserializeObject<List<Arc>>(input);
         }
 
         private static (string, string) ImportUserInput()
