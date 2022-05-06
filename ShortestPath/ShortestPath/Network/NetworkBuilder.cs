@@ -2,26 +2,21 @@
 {
     public class NetworkBuilder
     {
-        private Dictionary<string, Arc> _NetworkArcs = new Dictionary<string, Arc>();
-        private Dictionary<string, Node> _NetworkNodes = new Dictionary<string, Node>();
-        private Dictionary<string, List<Arc>> _NetworkNodesBackArcs = new Dictionary<string, List<Arc>>();
+        private Dictionary<string, Arc> _arcs = new Dictionary<string, Arc>();
+        private Dictionary<string, Node> _nodes = new Dictionary<string, Node>();
+        private Dictionary<string, List<Arc>> _nodesBackArcs = new Dictionary<string, List<Arc>>();
 
         public Network BuildNetwork(List<Arc> arcs)
         {
-            AssignNetwork(arcs);
-            return new Network(_NetworkArcs, _NetworkNodes, _NetworkNodesBackArcs);
-        }
-
-        private void AssignNetwork(List<Arc> arcs)
-        {
             AssignArcs(arcs);
+            return new Network(_arcs, _nodes, _nodesBackArcs);
         }
 
         private void AssignArcs(List<Arc> arcs)
         {
             foreach (Arc arc in arcs)
             {
-                _NetworkArcs.Add(arc.Idno, arc);
+                _arcs.Add(arc.Idno, arc);
                 AssignNodes(arc);
             }
         }
@@ -34,26 +29,26 @@
 
         private void ExtractNodes(Arc arc)
         {
-            if (!_NetworkNodes.ContainsKey(arc.Orig)) { InitializeNodes(arc.Orig); }
-            if (!_NetworkNodes.ContainsKey(arc.Dest)) { InitializeNodes(arc.Dest); }
+            if (!_nodes.ContainsKey(arc.Orig)) { InitializeNodes(arc.Orig); }
+            if (!_nodes.ContainsKey(arc.Dest)) { InitializeNodes(arc.Dest); }
         }
 
         private void InitializeNodes(string tempNode)
         {
             Node node = new Node(tempNode, double.PositiveInfinity, " ");
-            _NetworkNodes.Add(tempNode, node);
+            _nodes.Add(tempNode, node);
         }
 
         private void AssignNodesBackwardArcs(Arc arc)
         {
-            if (!_NetworkNodesBackArcs.ContainsKey(arc.Dest))
+            if (!_nodesBackArcs.ContainsKey(arc.Dest))
             {
                 List<Arc> list = new List<Arc>() { arc };
-                _NetworkNodesBackArcs.Add(arc.Dest, list);
+                _nodesBackArcs.Add(arc.Dest, list);
             }
             else
             {
-                _NetworkNodesBackArcs[arc.Dest].Add(arc);
+                _nodesBackArcs[arc.Dest].Add(arc);
             }
         }
     }

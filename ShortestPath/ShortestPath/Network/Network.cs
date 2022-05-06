@@ -2,18 +2,18 @@
 {
     public class Network
     {
-        public Dictionary<string, Arc> NetworkArcs = new Dictionary<string, Arc>();
-        public Dictionary<string, Node> NetworkNodes = new Dictionary<string, Node>();
-        public Dictionary<string, List<Arc>> NetworkNodesBackArcs = new Dictionary<string, List<Arc>>();
+        public Dictionary<string, Arc> Arcs = new Dictionary<string, Arc>();
+        public Dictionary<string, Node> Nodes = new Dictionary<string, Node>();
+        public Dictionary<string, List<Arc>> NodesBackArcs = new Dictionary<string, List<Arc>>();
 
-        public Network(Dictionary<string, Arc> networkArcs,
-            Dictionary<string, Node> ntworkNodes,
-            Dictionary<string, List<Arc>> networkNodesBackArcs
+        public Network(Dictionary<string, Arc> arcs,
+            Dictionary<string, Node> nodes,
+            Dictionary<string, List<Arc>> nodesBackArcs
             )
         {
-            NetworkArcs = networkArcs;
-            NetworkNodes = ntworkNodes;
-            NetworkNodesBackArcs = networkNodesBackArcs;
+            Arcs = arcs;
+            Nodes = nodes;
+            NodesBackArcs = nodesBackArcs;
         }
     }
 }

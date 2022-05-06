@@ -37,39 +37,39 @@
 
         private void InitializeHeap(Network network)
         {
-            heap = new Heap(network.NetworkNodes);
+            heap = new Heap(network.Nodes);
         }
 
         public void UpdateNodesProperties(Network network, string destination)
         {
             string tempDestination = destination;
-            network.NetworkNodes[tempDestination].Cost = 0;
-            heap.Add(network.NetworkNodes[tempDestination]);
-            for (int i = 0; i < network.NetworkNodes.Count; i++)
+            network.Nodes[tempDestination].Cost = 0;
+            heap.Add(network.Nodes[tempDestination]);
+            for (int i = 0; i < network.Nodes.Count; i++)
             {
-                List<Arc> backwardArcs = network.NetworkNodesBackArcs[tempDestination];
+                List<Arc> backwardArcs = network.NodesBackArcs[tempDestination];
                 foreach (Arc arc in backwardArcs)
                 {
-                    if (!(network.NetworkNodes[arc.Orig].Cost <= network.NetworkNodes[arc.Dest].Cost + arc.Cost))
+                    if (!(network.Nodes[arc.Orig].Cost <= network.Nodes[arc.Dest].Cost + arc.Cost))
                     {
-                        network.NetworkNodes[arc.Orig].Cost = arc.Cost + network.NetworkNodes[arc.Dest].Cost;
-                        network.NetworkNodes[arc.Orig].Successor = arc.Dest;
-                        Node node = new Node(arc.Orig, arc.Cost + network.NetworkNodes[arc.Dest].Cost);
+                        network.Nodes[arc.Orig].Cost = arc.Cost + network.Nodes[arc.Dest].Cost;
+                        network.Nodes[arc.Orig].Successor = arc.Dest;
+                        Node node = new Node(arc.Orig, arc.Cost + network.Nodes[arc.Dest].Cost);
                         heap.Add(node);
                     }
                 }
                 if (!ExtractedNodes.ContainsKey(heap.Root.ID))
                 {
-                    ExtractedNodes.Add(network.NetworkNodes[heap.Root.ID].ID, network.NetworkNodes[heap.Root.ID]);
+                    ExtractedNodes.Add(network.Nodes[heap.Root.ID].ID, network.Nodes[heap.Root.ID]);
                 }
 
-                if (ExtractedNodes.Count == network.NetworkNodes.Count) { break; }
+                if (ExtractedNodes.Count == network.Nodes.Count) { break; }
                 while (true)
                 {
                     Node Des = heap.Remove();
                     if (!ExtractedNodes.ContainsKey(Des.ID))
                     {
-                        tempDestination = network.NetworkNodes[Des.ID].ID;
+                        tempDestination = network.Nodes[Des.ID].ID;
                         break;
                     }
                 }
