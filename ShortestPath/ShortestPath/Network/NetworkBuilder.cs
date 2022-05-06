@@ -2,55 +2,58 @@
 {
     public class NetworkBuilder
     {
+        private Dictionary<string, Arc> _NetworkArcs = new Dictionary<string, Arc>();
+        private Dictionary<string, Node> _NetworkNodes = new Dictionary<string, Node>();
+        private Dictionary<string, List<Arc>> _NetworkNodesBackArcs = new Dictionary<string, List<Arc>>();
+
         public Network BuildNetwork(List<Arc> arcs)
         {
-            Network network = new Network();
-            AssignNetwork(network, arcs);
-            return network;
+            AssignNetwork(arcs);
+            return new Network(_NetworkArcs, _NetworkNodes, _NetworkNodesBackArcs);
         }
 
-        private void AssignNetwork(Network network, List<Arc> arcs)
+        private void AssignNetwork(List<Arc> arcs)
         {
-            AssignArcs(network, arcs);
+            AssignArcs(arcs);
         }
 
-        private void AssignArcs(Network network, List<Arc> arcs)
+        private void AssignArcs(List<Arc> arcs)
         {
             foreach (Arc arc in arcs)
             {
-                network.NetworkArcs.Add(arc.Idno, arc);
-                AssignNodes(network, arc);
+                _NetworkArcs.Add(arc.Idno, arc);
+                AssignNodes(arc);
             }
         }
 
-        private void AssignNodes(Network network, Arc arc)
+        private void AssignNodes(Arc arc)
         {
-            ExtractNodes(network, arc);
-            AssignNodesBackwardArcs(network, arc);
+            ExtractNodes(arc);
+            AssignNodesBackwardArcs(arc);
         }
 
-        private void ExtractNodes(Network network, Arc arc)
+        private void ExtractNodes(Arc arc)
         {
-            if (!network.NetworkNodes.ContainsKey(arc.Orig)) { InitializeNodes(network, arc.Orig); }
-            if (!network.NetworkNodes.ContainsKey(arc.Dest)) { InitializeNodes(network, arc.Dest); }
+            if (!_NetworkNodes.ContainsKey(arc.Orig)) { InitializeNodes(arc.Orig); }
+            if (!_NetworkNodes.ContainsKey(arc.Dest)) { InitializeNodes(arc.Dest); }
         }
 
-        private void InitializeNodes(Network network, string tempNode)
+        private void InitializeNodes(string tempNode)
         {
             Node node = new Node(tempNode, double.PositiveInfinity, " ");
-            network.NetworkNodes.Add(tempNode, node);
+            _NetworkNodes.Add(tempNode, node);
         }
 
-        private void AssignNodesBackwardArcs(Network network, Arc arc)
+        private void AssignNodesBackwardArcs(Arc arc)
         {
-            if (!network.NetworkNodesBackArcs.ContainsKey(arc.Dest))
+            if (!_NetworkNodesBackArcs.ContainsKey(arc.Dest))
             {
                 List<Arc> list = new List<Arc>() { arc };
-                network.NetworkNodesBackArcs.Add(arc.Dest, list);
+                _NetworkNodesBackArcs.Add(arc.Dest, list);
             }
             else
             {
-                network.NetworkNodesBackArcs[arc.Dest].Add(arc);
+                _NetworkNodesBackArcs[arc.Dest].Add(arc);
             }
         }
     }
