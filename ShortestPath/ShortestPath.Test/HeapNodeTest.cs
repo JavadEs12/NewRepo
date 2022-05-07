@@ -5,18 +5,21 @@ namespace ShortestPath.Test
     [TestClass]
     public class HeapNodeTest
     {
-        Dictionary<string, double> properties = new Dictionary<string, double>()
+        Dictionary<string, double> properties = new()
         {
-            {"A",10},{"B",11},{"C",12.5},{"D",13.95}
+            { "A", 10 },
+            { "B", 11 },
+            { "C", 12.5 },
+            { "D", 13.95 }
         };
-        Dictionary<string, HeapNode> heapNodes = new Dictionary<string, HeapNode>();
+        readonly Dictionary<string, HeapNode> heapNodes = new();
 
         [TestMethod]
         public void ConstructorTest()
         {
             foreach (KeyValuePair<string, double> item in properties)
             {
-                HeapNode heapNode = new HeapNode(item.Key, item.Value);
+                var heapNode = new HeapNode(item.Key, item.Value);
                 heapNodes.Add(item.Key, heapNode);
             }
             Assert.AreEqual(4, heapNodes.Count);
@@ -27,8 +30,8 @@ namespace ShortestPath.Test
         [TestMethod]
         public void ParentConstructorTest()
         {
-            HeapNode E = new HeapNode("F", 20);
-            HeapNode F = new HeapNode(E);
+            var E = new HeapNode("F", 20);
+            var F = new HeapNode(E);
 
             Assert.AreEqual(F.Parent, E);
         }

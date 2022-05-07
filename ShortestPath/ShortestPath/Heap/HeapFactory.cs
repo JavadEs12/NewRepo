@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShortestPath
+﻿namespace ShortestPath
 {
     public class HeapFactory
     {
@@ -13,21 +7,21 @@ namespace ShortestPath
             Heap,
             ArrayHeap
         }
-        private HeapType heapType;
+        private HeapType? heapType;
 
         public HeapFactory(HeapType type)
         {
             heapType = type;
         }
 
-        public IHeap GetHeap()
+        public IHeap? GetHeap()
         {
-            switch (heapType)
+            return heapType switch
             {
-                case HeapType.ArrayHeap: return new ArrayHeap();
-                case HeapType.Heap: return new Heap();
-                default: return null;
-            }
+                HeapType.ArrayHeap => new ArrayHeap(),
+                HeapType.Heap => new Heap(),
+                _ => null,
+            };
         }
     }
 }

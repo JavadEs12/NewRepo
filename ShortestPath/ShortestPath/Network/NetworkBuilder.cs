@@ -2,9 +2,9 @@
 {
     public class NetworkBuilder
     {
-        private Dictionary<string, Arc> _arcs = new Dictionary<string, Arc>();
-        private Dictionary<string, Node> _nodes = new Dictionary<string, Node>();
-        private Dictionary<string, List<Arc>> _nodesBackArcs = new Dictionary<string, List<Arc>>();
+        private readonly Dictionary<string, Arc> _arcs = new();
+        private readonly Dictionary<string, Node> _nodes = new();
+        private readonly Dictionary<string, List<Arc>> _nodesBackArcs = new();
 
         public Network BuildNetwork(List<Arc> arcs)
         {
@@ -35,7 +35,7 @@
 
         private void InitializeNodes(string tempNode)
         {
-            Node node = new Node(tempNode, double.PositiveInfinity, " ");
+            Node node = new(tempNode, double.PositiveInfinity, " ");
             _nodes.Add(tempNode, node);
         }
 
@@ -43,7 +43,7 @@
         {
             if (!_nodesBackArcs.ContainsKey(arc.Dest))
             {
-                List<Arc> list = new List<Arc>() { arc };
+                List<Arc> list = new() { arc };
                 _nodesBackArcs.Add(arc.Dest, list);
             }
             else

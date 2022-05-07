@@ -2,10 +2,10 @@
 {
     public class Heap : IHeap
     {
-        public HeapNode root;
-        public HeapNode pointer;
+        public HeapNode? root;
+        public HeapNode? pointer;
         public int count;
-        public Node Root => new Node(root.ID, root.Cost);
+        public Node Root => new(root.ID, root.Cost);
 
 
         public Heap(Dictionary<string, Node> nodes)
@@ -56,15 +56,9 @@
                 {
                     if (pointer == root) { break; }
                     if (pointer.Cost < pointer.Parent.Cost)
-                    { //Switch data
-                        double tempCost = pointer.Cost;
-                        pointer.Cost = pointer.Parent.Cost;
-                        pointer.Parent.Cost = tempCost;
-
-                        string tempID = pointer.ID;
-                        pointer.ID = pointer.Parent.ID;
-                        pointer.Parent.ID = tempID;
-
+                    { //Swap by tuples
+                        (pointer.Cost, pointer.Parent.Cost) = (pointer.Parent.Cost, pointer.Cost);
+                        (pointer.ID, pointer.Parent.ID) = (pointer.Parent.ID, pointer.ID);
                         pointer = pointer.Parent;
                     }
                     else
@@ -78,7 +72,7 @@
 
         public Node Remove()
         {
-            HeapNode output = root;
+            HeapNode? output = root;
             pointer = root;
             string bitcount = Convert.ToString(count, 2);
             for (int i = 1; i < bitcount.Length; i++)
@@ -112,13 +106,13 @@
             {
                 root = null;
             }
-            Node node = new Node(output.ID, output.Cost);  //convert Heap to Node type
+            Node node = new(output.ID, output.Cost);  //convert Heap to Node type
             return node;
         }
 
         private void Heapify()
         {
-            HeapNode compare;
+            HeapNode? compare;
             pointer = root;
 
             while (true)
@@ -144,13 +138,9 @@
                 }
                 if (pointer.Cost > compare.Cost)
                 {
-                    double tempCost = pointer.Cost;
-                    pointer.Cost = compare.Cost;
-                    compare.Cost = tempCost;
-
-                    string tempID = pointer.ID;
-                    pointer.ID = compare.ID;
-                    compare.ID = tempID;
+                    //Swap by tuples
+                    (pointer.Cost, compare.Cost) = (compare.Cost, pointer.Cost);
+                    (pointer.ID, compare.ID) = (compare.ID, pointer.ID);
                     pointer = compare;
                 }
                 else

@@ -7,17 +7,17 @@
         public double Cost { get; set; }
         public string Successor { get; set; }
 
-        public Node(string ID, double Cost, string Successor)
+        public Node(string id, double cost, string successor)
         {
-            this.ID = ID;
-            this.Cost = Cost;
-            this.Successor = Successor;
+            ID = id;
+            Cost = cost;
+            Successor = successor;
         }
 
-        public Node(string ID, double Cost)
+        public Node(string id, double cost)
         {
-            this.ID = ID;
-            this.Cost = Cost;
+            ID = id;
+            Cost = cost;
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections;
 namespace ShortestPath.Test
 {
     [TestClass]
     public class ArrayHeapTest
     {
-        Dictionary<string, Node> nodes = new Dictionary<string, Node>();
+        readonly Dictionary<string, Node> nodes = new();
         private void Input()
         {
             nodes.Add("1", new Node("1", 11, "a"));
@@ -18,7 +17,7 @@ namespace ShortestPath.Test
         public void ArrayHeaptest()
         {
             Input();
-            ArrayHeap heap = new ArrayHeap(nodes);
+            var heap = new ArrayHeap(nodes);
             Assert.IsNotNull(heap.Heap);
         }
         [TestMethod]
@@ -26,18 +25,18 @@ namespace ShortestPath.Test
         {
 
             Input();
-            ArrayHeap heap = new ArrayHeap(nodes);
-            Node node = heap.Heap[0];
+            var heap = new ArrayHeap(nodes);
+            var node = heap.Heap[0];
             Assert.AreEqual(2, node.Cost);
         }
         [TestMethod]
         public void RemoveTest()
         {
             Input();
-            ArrayHeap heap = new ArrayHeap(nodes);
-            Node Root = heap.Remove();
+            var heap = new ArrayHeap(nodes);
+            var Root = heap.Remove();
             Assert.AreEqual(2, Root.Cost);
-            Node Root1 = heap.Remove();
+            var Root1 = heap.Remove();
             Assert.AreEqual(10, Root1.Cost);
         }
     }

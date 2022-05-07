@@ -8,14 +8,14 @@
             var deserializer = new JsonDeserializer();
             List<Arc> arcs = deserializer.Deserialize(input);
 
-            NetworkBuilder networkBuilder = new NetworkBuilder();
-            Network network = networkBuilder.BuildNetwork(arcs);
+            var networkBuilder = new NetworkBuilder();
+            var network = networkBuilder.BuildNetwork(arcs);
 
-            UserInput userInput = new UserInput();
+            var userInput = new UserInput();
             (string Origin, string Destination) = userInput.ReadUserInput();
 
             // Type of heap for heap-interface is assigned here
-            DijkstraAlgorithm Dijkstra = new DijkstraAlgorithm(new HeapFactory(HeapFactory.HeapType.ArrayHeap));
+            var Dijkstra = new DijkstraAlgorithm(new HeapFactory(HeapFactory.HeapType.Heap));
             Dijkstra.FindShortestPath(network, Origin, Destination);
         }
     }

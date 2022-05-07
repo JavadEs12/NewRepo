@@ -2,8 +2,8 @@
 {
     public class DijkstraAlgorithm
     {
-        public Dictionary<string, Node> ExtractedNodes = new Dictionary<string, Node>();
-        public IHeap heap;
+        public Dictionary<string, Node> ExtractedNodes = new();
+        public IHeap? heap;
 
         public DijkstraAlgorithm(HeapFactory factory)
         {
@@ -16,7 +16,7 @@
             {
                 InitializeHeap(network);
                 UpdateNodesProperties(network, destination);
-                List<string> ShortestPath = new List<string>();
+                List<string> ShortestPath = new();
                 ShortestPath.Add(origin);
                 string InitialNode = origin;
 
@@ -54,7 +54,7 @@
                     {
                         network.Nodes[arc.Orig].Cost = arc.Cost + network.Nodes[arc.Dest].Cost;
                         network.Nodes[arc.Orig].Successor = arc.Dest;
-                        Node node = new Node(arc.Orig, arc.Cost + network.Nodes[arc.Dest].Cost);
+                        Node node = new(arc.Orig, arc.Cost + network.Nodes[arc.Dest].Cost);
                         heap.Add(node);
                     }
                 }
@@ -76,7 +76,7 @@
             }
         }
 
-        private void Print(List<string> shortestPath)
+        private static void Print(List<string> shortestPath)
         {
             Console.WriteLine($"Sequence of shortest path elements are as:");
             foreach (string node in shortestPath)

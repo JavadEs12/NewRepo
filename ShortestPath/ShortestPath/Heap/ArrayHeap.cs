@@ -1,31 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShortestPath
+﻿namespace ShortestPath
 {
     public class ArrayHeap : IHeap
     {
-        public List<Node> Heap = new List<Node>();
+        public List<Node> Heap = new();
         private int count;
 
         public Node Root => Heap[0];
 
         public ArrayHeap(Dictionary<string, Node> nodes)
         {
-            count = 0;
+            this.count = 0;
             foreach (KeyValuePair<string, Node> node in nodes)
             {
                 Add(node.Value);
             }
         }
 
-        public ArrayHeap()
-        {
-        }
+        public ArrayHeap() { }
 
         public void Add(Node node)
         {
@@ -43,11 +34,11 @@ namespace ShortestPath
                 int pointer = count - 1;
                 while (true)
                 {
-                    Node Child = Heap[pointer];
-                    Node Parent = Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
+                    Node? Child = Heap[pointer];
+                    Node? Parent = Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
                     if (Child.Cost < Parent.Cost)
                     {
-                        SubstituteParentByChild(Math.Abs((pointer) / 2), pointer);
+                        Swap(Math.Abs((pointer) / 2), pointer);
                     }
                     pointer = Math.Abs((pointer) / 2);
                     if (pointer == 0) { break; }
@@ -56,7 +47,7 @@ namespace ShortestPath
         }
         public Node Remove()
         {
-            Node Root = Heap[0];
+            Node? Root = Heap[0];
             Heap[0] = Heap[count - 1];
             Heap.RemoveAt(count - 1);
             count--;
@@ -71,19 +62,21 @@ namespace ShortestPath
             {
                 if (Heap.Count == 0) { break; }
 
-                Node Parent = Heap[pointer];
-                Node LChild = null;
-                Node RChild = null;
+                Node? Parent = Heap[pointer];
+                Node? LChild = null;
+                Node? RChild = null;
 
-                if ((2 * pointer + 1 <= count - 1)) { LChild = Heap[2 * pointer + 1]; }
-                if ((2 * pointer + 2 <= count - 1)) { RChild = Heap[2 * pointer + 2]; }
-               
+                if ((2 * pointer + 1 <= count - 1))
+                { LChild = Heap[2 * pointer + 1]; }
+                if ((2 * pointer + 2 <= count - 1))
+                { RChild = Heap[2 * pointer + 2]; }
+
                 if (LChild == null) { break; }
                 if (RChild == null)
                 {
                     if (Parent.Cost > LChild.Cost)
                     {
-                        SubstituteParentByChild(pointer, (2 * pointer + 1));
+                        Swap(pointer, (2 * pointer + 1));
                     }
                     break;
                 }
@@ -91,22 +84,21 @@ namespace ShortestPath
                 {
                     if (LChild.Cost < RChild.Cost)
                     {
-                        SubstituteParentByChild(pointer, (2 * pointer + 1));
+                        Swap(pointer, (2 * pointer + 1));
                         pointer = 2 * pointer + 1;
                     }
                     else
                     {
-                        SubstituteParentByChild(pointer, (2 * pointer + 2));
+                        Swap(pointer, (2 * pointer + 2));
                         pointer = 2 * pointer + 2;
                     }
                 }
             }
         }
-        private void SubstituteParentByChild(int parentIndex, int childIndex)
+        private void Swap(int parentIndex, int childIndex)
         {
-            Node comparer = Heap[parentIndex];
-            Heap[parentIndex] = Heap[childIndex];
-            Heap[childIndex] = comparer;
+            // Swap by tuple feature
+            (Heap[childIndex], Heap[parentIndex]) = (Heap[parentIndex], Heap[childIndex]);
         }
     }
 }
