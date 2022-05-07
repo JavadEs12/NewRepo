@@ -35,8 +35,7 @@
 
         private void InitializeNodes(string tempNode)
         {
-            Node node = new(tempNode, double.PositiveInfinity, " ");
-            _nodes.Add(tempNode, node);
+            _nodes.Add(tempNode, new Node(tempNode, double.PositiveInfinity, " "));
         }
 
         private void AssignNodesBackwardArcs(Arc arc)
