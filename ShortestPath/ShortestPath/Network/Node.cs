@@ -13,7 +13,6 @@
             Cost = cost;
             Successor = successor;
         }
-
         public Node(string id, double cost)
         {
             ID = id;

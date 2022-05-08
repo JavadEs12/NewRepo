@@ -4,7 +4,6 @@
     {
         public string? ID { get; set; }
         public double Cost { get; set; }
-
         public HeapNode? Parent;
         public HeapNode? Left;
         public HeapNode? Right;

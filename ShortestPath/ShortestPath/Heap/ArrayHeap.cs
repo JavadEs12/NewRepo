@@ -4,9 +4,7 @@
     {
         public List<Node> Heap = new();
         private int count;
-
         public Node Root => Heap[0];
-
         public ArrayHeap(Dictionary<string, Node> nodes)
         {
             this.count = 0;
@@ -15,20 +13,16 @@
                 Add(node.Value);
             }
         }
-
         public ArrayHeap() { }
-
         public void Add(Node node)
         {
             Heap.Add(node);
             count++;
             PerculateUp();
         }
-
         private void PerculateUp()
         {
             if (count == 0) { return; }
-
             else
             {
                 int pointer = count - 1;
@@ -54,23 +48,19 @@
             PerculateDown();
             return Root;
         }
-
         private void PerculateDown()
         {
             int pointer = 0;
             while (true)
             {
                 if (Heap.Count == 0) { break; }
-
                 Node? Parent = Heap[pointer];
                 Node? LChild = null;
                 Node? RChild = null;
-
                 if ((2 * pointer + 1 <= count - 1))
                 { LChild = Heap[2 * pointer + 1]; }
                 if ((2 * pointer + 2 <= count - 1))
                 { RChild = Heap[2 * pointer + 2]; }
-
                 if (LChild == null) { break; }
                 if (RChild == null)
                 {

@@ -3,12 +3,10 @@
     public class ShortestPath
     {
         public IHeap? heap;
-
         public ShortestPath(HeapFactory factory)
         {
             heap = factory.GetHeap();
         }
-
         public List<string>? FindShortestPath(Network network, string origin, string destination)
         {
             try
@@ -37,7 +35,6 @@
                 return null;
             }
         }
-
         private void InitializeHeap(Network network)
         {
             heap = new Heap(network.Nodes);

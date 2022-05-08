@@ -7,7 +7,6 @@
         public int count;
         public Node Root => new(root.ID, root.Cost);
 
-
         public Heap(Dictionary<string, Node> nodes)
         {
             count = 0;
@@ -16,9 +15,7 @@
                 Add(node.Value);
             }
         }
-
         public Heap() { }
-
         public void Add(Node node)
         {
             if (root == null)
@@ -51,7 +48,6 @@
                 }
                 pointer.Cost = node.Cost;
                 pointer.ID = node.ID;
-
                 while (true)
                 {
                     if (pointer == root) { break; }
@@ -69,7 +65,6 @@
                 count++;
             }
         }
-
         public Node Remove()
         {
             HeapNode? output = root;
@@ -109,12 +104,10 @@
             Node node = new(output.ID, output.Cost);  //convert Heap to Node type
             return node;
         }
-
         private void Heapify()
         {
             HeapNode? compare;
             pointer = root;
-
             while (true)
             {
                 if (pointer.Left == null)
