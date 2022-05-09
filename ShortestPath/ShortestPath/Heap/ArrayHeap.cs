@@ -3,7 +3,7 @@
     public class ArrayHeap : IHeap
     {
         public List<Node> Heap = new();
-        private int count;
+        public int count;
         public Node Root => Heap[0];
         public ArrayHeap(Dictionary<string, Node> nodes)
         {
