@@ -28,7 +28,7 @@ namespace ShortestPath.Benchmark
             }
             comparison.Cleanup();
 #else
-            BenchmarkRunner.Run<RemoveBenchmark>(); 
+            BenchmarkRunner.Run<Comparison>(); 
 #endif
         }
     }

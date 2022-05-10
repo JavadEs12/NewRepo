@@ -9,7 +9,7 @@
             string Destination = CheckInputAccuracy(Origin);
             return (Origin, Destination);
         }
-        private string CheckInputAccuracy(string? origin = null)
+        private string CheckInputAccuracy(string origin = null)
         {
             while (true)
             {

@@ -28,8 +28,8 @@
                 int pointer = count - 1;
                 while (true)
                 {
-                    Node? Child = heap[pointer];
-                    Node? Parent = heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
+                    Node Child = heap[pointer];
+                    Node Parent = heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
                     if (Child.Cost < Parent.Cost)
                     {
                         Swap(Math.Abs((pointer) / 2), pointer);
@@ -41,7 +41,7 @@
         }
         public Node Remove()
         {
-            Node? Root = heap[0];
+            Node Root = heap[0];
             heap[0] = heap[count - 1];
             heap.RemoveAt(count - 1);
             count--;
@@ -54,9 +54,9 @@
             while (true)
             {
                 if (heap.Count == 0) { break; }
-                Node? Parent = heap[pointer];
-                Node? LChild = null;
-                Node? RChild = null;
+                Node Parent = heap[pointer];
+                Node LChild = null;
+                Node RChild = null;
                 if ((2 * pointer + 1 <= count - 1))
                 { LChild = heap[2 * pointer + 1]; }
                 if ((2 * pointer + 2 <= count - 1))

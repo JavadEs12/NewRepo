@@ -67,7 +67,7 @@
         }
         public Node Remove()
         {
-            HeapNode? output = root;
+            HeapNode output = root;
             pointer = root;
             string bitcount = Convert.ToString(count, 2);
             for (int i = 1; i < bitcount.Length; i++)
@@ -106,7 +106,7 @@
         }
         private void Heapify()
         {
-            HeapNode? compare;
+            HeapNode compare;
             pointer = root;
             while (true)
             {

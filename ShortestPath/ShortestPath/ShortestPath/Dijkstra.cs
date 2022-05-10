@@ -3,7 +3,7 @@
     public class Dijkstra
     {
         public Dictionary<string, Node> ExtractedNodes = new();
-        public Dictionary<string, Node> UpdateNetworkProp(Network network, string destination, IHeap? heap)
+        public Dictionary<string, Node> UpdateNetworkProp(Network network, string destination, IHeap heap)
         {
             string tempDestination = destination;
             network.Nodes[tempDestination].Cost = 0;

@@ -13,12 +13,12 @@ namespace ShortestPath.Benchmark
     public class Comparison
     {
 
-        [Params(5)]
+        [Params(1000)]
         public int NumberOfElements { get; set; }
 
-        public List<Node>? nodes { get; set; }
-        public ArrayHeap? arrayHeap { get; set; }
-        public Heap? heap { get; set; }
+        public List<Node> nodes { get; set; }
+        public ArrayHeap arrayHeap { get; set; }
+        public Heap heap { get; set; }
 
         [GlobalSetup]
         public void Init()

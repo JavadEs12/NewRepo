@@ -2,12 +2,12 @@
 {
     public class ShortestPath
     {
-        public IHeap? heap;
+        public IHeap heap;
         public ShortestPath(HeapFactory factory)
         {
             heap = factory.GetHeap();
         }
-        public List<string>? FindShortestPath(Network network, string origin, string destination)
+        public List<string> FindShortestPath(Network network, string origin, string destination)
         {
             try
             {
