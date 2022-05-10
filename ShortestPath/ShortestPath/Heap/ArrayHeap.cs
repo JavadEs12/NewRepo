@@ -51,40 +51,44 @@
         public void PerculateDown()
         {
             int pointer = 0;
+            int compare = 0;
+
             while (true)
             {
-                if (heap.Count == 0) { break; }
-                Node Parent = heap[pointer];
-                Node LChild = null;
-                Node RChild = null;
-                if ((2 * pointer + 1 <= count - 1))
-                { LChild = heap[2 * pointer + 1]; }
-                if ((2 * pointer + 2 <= count - 1))
-                { RChild = heap[2 * pointer + 2]; }
-                if (LChild == null) { break; }
-                if (RChild == null)
+                if (2 * pointer + 1 > heap.Count-1)
                 {
-                    if (Parent.Cost > LChild.Cost)
-                    {
-                        Swap(pointer, (2 * pointer + 1));
-                    }
                     break;
                 }
-                else if (Parent.Cost > LChild.Cost || Parent.Cost > RChild.Cost)
+                if (2 * pointer + 2 > heap.Count-1)
                 {
-                    if (LChild.Cost < RChild.Cost)
+                    compare = 2 * pointer + 1;
+                }
+                else 
+                {
+                    Node? Parent = heap[pointer];
+                    Node? LChild = heap[(2 * pointer + 1)];
+                    Node? RChild = heap[(2 * pointer + 2)];
+                    if (RChild.Cost > LChild.Cost)
                     {
-                        Swap(pointer, (2 * pointer + 1));
-                        pointer = 2 * pointer + 1;
+                        compare = 2 * pointer + 1;
                     }
                     else
                     {
-                        Swap(pointer, (2 * pointer + 2));
-                        pointer = 2 * pointer + 2;
+                        compare = 2 * pointer + 2;
                     }
+                }
+                if (heap[pointer].Cost > heap[compare].Cost)
+                {
+                    (heap[pointer], heap[compare]) = (heap[compare], heap[pointer]);
+                    pointer = compare;
+                }
+                else
+                {
+                    break;
                 }
             }
         }
+
         public void Swap(int parentIndex, int childIndex)
         {
             // Swap by tuple feature

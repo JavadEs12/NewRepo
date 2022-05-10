@@ -13,7 +13,7 @@ namespace ShortestPath.Benchmark
     public class Comparison
     {
 
-        [Params(1000)]
+        [Params(10,100,1000,10000)]
         public int NumberOfElements { get; set; }
 
         public List<Node> nodes { get; set; }
@@ -67,18 +67,18 @@ namespace ShortestPath.Benchmark
         }
 
         [Benchmark]
+        public void ArrayHeapAdd()
+        {
+            nodes.ForEach(x => arrayHeap.Add(x));
+        }
+
+        [Benchmark]
         public void HeapRemove()
         {
             while (heap.count > 1)
             {
                 heap.Remove();
             }
-        }
-
-        [Benchmark]
-        public void ArrayHeapAdd()
-        {
-            nodes.ForEach(x => arrayHeap.Add(x));
         }
 
         [Benchmark]

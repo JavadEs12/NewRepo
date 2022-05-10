@@ -13,15 +13,15 @@ namespace ShortestPath.Benchmark
             comparison.Init();
             for (int i = 0; i < 10; i++)
             {
-                //comparison.IterationSetup();
-                //comparison.HeapAdd();
-                //comparison.IterationCleanup();
-                //comparison.IterationSetup();
-                //comparison.HeapRemove();
-                //comparison.IterationCleanup();
-                //comparison.IterationSetup();
-                //comparison.ArrayHeapAdd();
-                //comparison.IterationCleanup();
+                comparison.IterationSetup();
+                comparison.HeapAdd();
+                comparison.IterationCleanup();
+                comparison.IterationSetup();
+                comparison.HeapRemove();
+                comparison.IterationCleanup();
+                comparison.IterationSetup();
+                comparison.ArrayHeapAdd();
+                comparison.IterationCleanup();
                 comparison.IterationSetup();
                 comparison.ArrayHeapRemove();
                 comparison.IterationCleanup();
