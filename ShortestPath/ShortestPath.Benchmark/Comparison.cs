@@ -1,4 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Environments;
+using BenchmarkDotNet.Configs;
+
 using Newtonsoft.Json;
 using ShortestPath;
 
@@ -10,12 +13,12 @@ namespace ShortestPath.Benchmark
     public class Comparison
     {
 
-        [Params(100, 1000)]
+        [Params(5)]
         public int NumberOfElements { get; set; }
 
-        public List<Node> nodes { get; set; }
-        public ArrayHeap arrayHeap { get; set; }
-        public Heap heap { get; set; }
+        public List<Node>? nodes { get; set; }
+        public ArrayHeap? arrayHeap { get; set; }
+        public Heap? heap { get; set; }
 
         [GlobalSetup]
         public void Init()
@@ -81,7 +84,7 @@ namespace ShortestPath.Benchmark
         [Benchmark]
         public void ArrayHeapRemove()
         {
-            while (arrayHeap.count>1)
+            while (arrayHeap.count > 1)
             {
                 arrayHeap.Remove();
             }

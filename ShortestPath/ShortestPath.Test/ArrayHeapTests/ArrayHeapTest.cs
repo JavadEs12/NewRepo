@@ -18,7 +18,7 @@ namespace ShortestPath.Test
         {
             Input();
             var heap = new ArrayHeap(nodes);
-            Assert.IsNotNull(heap.Heap);
+            Assert.IsNotNull(heap.heap);
         }
         [TestMethod]
         public void AddTest()
@@ -26,7 +26,7 @@ namespace ShortestPath.Test
 
             Input();
             var heap = new ArrayHeap(nodes);
-            var node = heap.Heap[0];
+            var node = heap.heap[0];
             Assert.AreEqual(2, node.Cost);
         }
         [TestMethod]

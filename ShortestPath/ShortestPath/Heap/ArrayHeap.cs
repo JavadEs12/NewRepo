@@ -2,9 +2,9 @@
 {
     public class ArrayHeap : IHeap
     {
-        public List<Node> Heap = new();
+        public List<Node> heap = new();
         public int count;
-        public Node Root => Heap[0];
+        public Node Root => heap[0];
         public ArrayHeap(Dictionary<string, Node> nodes)
         {
             this.count = 0;
@@ -16,11 +16,11 @@
         public ArrayHeap() { }
         public void Add(Node node)
         {
-            Heap.Add(node);
+            heap.Add(node);
             count++;
             PerculateUp();
         }
-        private void PerculateUp()
+        public void PerculateUp()
         {
             if (count == 0) { return; }
             else
@@ -28,8 +28,8 @@
                 int pointer = count - 1;
                 while (true)
                 {
-                    Node? Child = Heap[pointer];
-                    Node? Parent = Heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
+                    Node? Child = heap[pointer];
+                    Node? Parent = heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
                     if (Child.Cost < Parent.Cost)
                     {
                         Swap(Math.Abs((pointer) / 2), pointer);
@@ -41,26 +41,26 @@
         }
         public Node Remove()
         {
-            Node? Root = Heap[0];
-            Heap[0] = Heap[count - 1];
-            Heap.RemoveAt(count - 1);
+            Node? Root = heap[0];
+            heap[0] = heap[count - 1];
+            heap.RemoveAt(count - 1);
             count--;
             PerculateDown();
             return Root;
         }
-        private void PerculateDown()
+        public void PerculateDown()
         {
             int pointer = 0;
             while (true)
             {
-                if (Heap.Count == 0) { break; }
-                Node? Parent = Heap[pointer];
+                if (heap.Count == 0) { break; }
+                Node? Parent = heap[pointer];
                 Node? LChild = null;
                 Node? RChild = null;
                 if ((2 * pointer + 1 <= count - 1))
-                { LChild = Heap[2 * pointer + 1]; }
+                { LChild = heap[2 * pointer + 1]; }
                 if ((2 * pointer + 2 <= count - 1))
-                { RChild = Heap[2 * pointer + 2]; }
+                { RChild = heap[2 * pointer + 2]; }
                 if (LChild == null) { break; }
                 if (RChild == null)
                 {
@@ -85,10 +85,10 @@
                 }
             }
         }
-        private void Swap(int parentIndex, int childIndex)
+        public void Swap(int parentIndex, int childIndex)
         {
             // Swap by tuple feature
-            (Heap[childIndex], Heap[parentIndex]) = (Heap[parentIndex], Heap[childIndex]);
+            (heap[childIndex], heap[parentIndex]) = (heap[parentIndex], heap[childIndex]);
         }
     }
 }

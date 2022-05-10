@@ -2,8 +2,8 @@
 {
     public class Heap : IHeap
     {
-        public HeapNode? root;
-        public HeapNode? pointer;
+        public HeapNode root;
+        public HeapNode pointer;
         public int count;
         public Node Root => new(root.ID, root.Cost);
 

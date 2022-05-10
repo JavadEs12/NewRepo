@@ -15,7 +15,7 @@
             (string Origin, string Destination) = userInput.ReadUserInput();
 
             // Type of heap for heap-interface is assigned here
-            var path = new ShortestPath(new HeapFactory(HeapFactory.HeapType.ArrayHeap));
+            var path = new ShortestPath(new HeapFactory(HeapFactory.HeapType.Heap));
             List<string>? shortestPath = path.FindShortestPath(network, Origin, Destination);
             Print(shortestPath);
         }
