@@ -1,15 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShortestPath;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ShortestPath.Test.ArrayHeapTests
+namespace ShortestPath.Test
 {
     [TestClass]
-    public class RandomArrayHeapGenerator
+    public class RandomHeapGenerator
     {
         readonly Dictionary<string, Node> _nodes = new();
         RandomHeapGeneration _rndHeap = new();
 
-        public RandomArrayHeapGenerator()
+        public RandomHeapGenerator()
         {
             RandomHeapGeneration _rndHeap = new();
             Dictionary<string, Node> nodes = _rndHeap.Input();
@@ -26,6 +30,7 @@ namespace ShortestPath.Test.ArrayHeapTests
         [TestMethod]
         public void AddTest()
         {
+
             var arrayHeap = new ArrayHeap(_nodes);
             Assert.AreEqual(_rndHeap.NumberOfElements, arrayHeap.count);
         }
@@ -34,7 +39,7 @@ namespace ShortestPath.Test.ArrayHeapTests
         {
             var arrayHeap = new ArrayHeap(_nodes);
             int i = 0;
-            foreach (KeyValuePair<string,Node> item in _nodes)
+            foreach (KeyValuePair<string, Node> item in _nodes)
             {
                 arrayHeap.Remove();
                 _rndHeap.NumberOfElements--;

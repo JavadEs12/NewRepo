@@ -1,11 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShortestPath;
 
 namespace ShortestPath.Test
 {
     [TestClass]
-    public class HeapTest
+    public class HeapTests
     {
-        Dictionary<string, Node> nodes = new();
+        readonly Dictionary<string, Node> nodes = new();
         public void Input()
         {
             nodes.Add("1", new Node("1", 11, "a"));
@@ -14,14 +15,14 @@ namespace ShortestPath.Test
             nodes.Add("4", new Node("4", 14, "d"));
         }
         [TestMethod]
-        public void Heap_Constructor_Test()
+        public void ConstructorTest()
         {
             Input();
             var heap = new Heap(nodes);
             Assert.IsNotNull(heap);
         }
         [TestMethod]
-        public void Heap_Add_Test()
+        public void AddTest()
         {
             Input();
             var heap = new Heap(nodes);
@@ -30,7 +31,7 @@ namespace ShortestPath.Test
 
         }
         [TestMethod]
-        public void Heap_Remove_Test()
+        public void RemoveTest()
         {
             Input();
             var heap = new Heap(nodes);
