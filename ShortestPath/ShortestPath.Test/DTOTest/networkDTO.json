@@ -1,0 +1,22 @@
+{
+  "Arcs": [
+    {
+      "Idno": "1",
+      "Orig": "1",
+      "Dest": "2",
+      "Cost": 10.0
+    }
+  ],
+  "Nodes": [
+    {
+      "ID": "1",
+      "Cost": 0.0,
+      "Successor": null
+    },
+    {
+      "ID": "2",
+      "Cost": 0.0,
+      "Successor": null
+    }
+  ]
+}

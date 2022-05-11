@@ -16,4 +16,10 @@
     <ProjectReference Include="..\ShortestPath\ShortestPath.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DTOTest\networkDTO.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

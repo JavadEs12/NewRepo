@@ -18,5 +18,6 @@
             ID = id;
             Cost = cost;
         }
+        public Node() { }
     }
 }
