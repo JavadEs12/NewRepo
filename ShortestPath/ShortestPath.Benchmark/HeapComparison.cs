@@ -10,7 +10,7 @@ namespace ShortestPath.Benchmark
     [MemoryDiagnoser]
     [Orderer(BenchmarkDotNet.Order.SummaryOrderPolicy.FastestToSlowest)]
     [RankColumn]
-    public class Comparison
+    public class HeapComparison
     {
 
         [Params(10,100,1000,10000)]
