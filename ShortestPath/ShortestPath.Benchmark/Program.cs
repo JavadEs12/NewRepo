@@ -1,7 +1,4 @@
-﻿using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Running;
-using ShortestPath;
-using System;
+﻿using BenchmarkDotNet.Running;
 
 namespace ShortestPath.Benchmark
 {
@@ -30,7 +27,7 @@ namespace ShortestPath.Benchmark
             }
             comparison.Cleanup();
 #else
-            BenchmarkRunner.Run<HeapComparison>(); 
+            BenchmarkRunner.Run<Comparison>();
 #endif
         }
     }
