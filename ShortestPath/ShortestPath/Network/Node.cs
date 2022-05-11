@@ -19,5 +19,10 @@
             Cost = cost;
         }
         public Node() { }
+
+        public override string ToString()
+        {
+            return  $"{ID} {Cost}";
+        }
     }
 }

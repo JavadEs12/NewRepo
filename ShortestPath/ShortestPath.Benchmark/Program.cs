@@ -1,6 +1,8 @@
 ﻿using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 using ShortestPath;
+using System;
+
 namespace ShortestPath.Benchmark
 {
     public class Program

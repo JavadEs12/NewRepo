@@ -19,26 +19,70 @@
             heap.Add(node);
             count++;
             PerculateUp();
+            Validate();
         }
         public void PerculateUp()
         {
-            if (count == 0) { return; }
+            if (count == 0) 
+            {
+                return; 
+            }
             else
             {
                 int pointer = count - 1;
                 while (true)
                 {
                     Node Child = heap[pointer];
-                    Node Parent = heap[Math.Abs((pointer) / 2)]; //Maybe need to round down 
+                    var parentIndex = (pointer - 1)/2;
+                    Node Parent = heap[parentIndex]; //Maybe need to round down 
                     if (Child.Cost < Parent.Cost)
                     {
-                        Swap(Math.Abs((pointer) / 2), pointer);
+                        Swap(parentIndex, pointer);
                     }
-                    pointer = Math.Abs((pointer) / 2);
-                    if (pointer == 0) { break; }
+                    pointer = parentIndex;
+                    if (pointer == 0) 
+                    { 
+                        break;
+                    }
                 }
             }
         }
+
+        private void Validate()
+        {
+            if (heap.Count == 0)
+            {
+                return;
+            }
+            var lowCost = Root.Cost;
+            if (heap.Any(x => x.Cost < lowCost))
+            {
+                throw new InvalidOperationException();
+            }
+            for (int i = 0; i < count / 2; i++)
+            {
+                var l = 2 * i + 1;
+                if (l < count)
+                {
+                    if (heap[l].Cost < heap[i].Cost)
+                    {
+                        throw new InvalidOperationException();
+                    }
+
+                }
+                var r = 2 * i + 2;
+                if (r < count)
+                {
+                    if (heap[r].Cost < heap[i].Cost)
+                    {
+                        throw new InvalidOperationException();
+                    }
+
+                }
+            }
+
+        }
+
         public Node Remove()
         {
             Node Root = heap[0];
@@ -46,24 +90,25 @@
             heap.RemoveAt(count - 1);
             count--;
             PerculateDown();
+            Validate();
             return Root;
         }
         public void PerculateDown()
         {
             int pointer = 0;
-            int compare = 0;
+            int compare;
 
             while (true)
             {
-                if (2 * pointer + 1 > heap.Count-1)
+                if (2 * pointer + 1 > heap.Count - 1)
                 {
                     break;
                 }
-                if (2 * pointer + 2 > heap.Count-1)
+                if (2 * pointer + 2 > heap.Count - 1)
                 {
                     compare = 2 * pointer + 1;
                 }
-                else 
+                else
                 {
                     Node? Parent = heap[pointer];
                     Node? LChild = heap[(2 * pointer + 1)];
@@ -79,7 +124,8 @@
                 }
                 if (heap[pointer].Cost > heap[compare].Cost)
                 {
-                    (heap[pointer], heap[compare]) = (heap[compare], heap[pointer]);
+                    Swap(pointer, compare);
+                    //(heap[pointer], heap[compare]) = (heap[compare], heap[pointer]);
                     pointer = compare;
                 }
                 else

@@ -6,10 +6,6 @@ namespace ShortestPath
         public List< Arc> Arcs = new();
         public List< Node> Nodes = new();
 
-        public NetworkDTO()
-        {
-
-        }
-
+        public NetworkDTO() { }
     }
 }
