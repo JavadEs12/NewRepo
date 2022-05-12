@@ -8,23 +8,31 @@ namespace ShortestPath.Test.ArrayHeapTests
         [TestMethod]
         public void ConstructorTest()
         {
-            var arrayHeap = new ArrayHeap(GetNodes(2));
+            var numberOfElements = 1000;
+            var arrayHeap = new ArrayHeap(RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements));
             Assert.IsNotNull(arrayHeap);
+            Assert.AreEqual(numberOfElements,arrayHeap.heap.Count);
         }
 
         [TestMethod]
         public void AddTest()
         {
             int numberOfElements = 1000;
-            var arrayHeap = new ArrayHeap(GetNodes(numberOfElements));
-            Assert.AreEqual(numberOfElements, arrayHeap.count);
+            var nodes = RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements);
+            var arrayHeap = new ArrayHeap();
+            foreach (KeyValuePair<string,Node> node in nodes)
+            {
+                arrayHeap.Add(node.Value);
+                var root= arrayHeap.Root;
+                Assert.IsTrue(arrayHeap.heap.Any(x => x.Cost >= root.Cost));
+            }
         }
 
         [TestMethod]
         public void RemoveTest()
         {
             int numberOfElements = 10000;
-            var nodes = GetNodes(numberOfElements);
+            var nodes = RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements);
             var arrayHeap = new ArrayHeap(nodes);
             var previousCost = double.NegativeInfinity;
 
@@ -35,12 +43,6 @@ namespace ShortestPath.Test.ArrayHeapTests
                 previousCost = removedNode.Cost;
             }
             Assert.AreEqual(0, arrayHeap.count);
-        }
-
-        private Dictionary<string, Node> GetNodes(int numberOfElements)
-        {
-            RandomNodeDictionaryGenerator randomNodeGenerator = new();
-            return randomNodeGenerator.Input(numberOfElements);
         }
     }
 }

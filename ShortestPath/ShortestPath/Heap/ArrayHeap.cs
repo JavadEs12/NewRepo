@@ -19,7 +19,6 @@
             heap.Add(node);
             count++;
             PerculateUp();
-            Validate();
         }
         public void PerculateUp()
         {
@@ -34,7 +33,7 @@
                 {
                     Node Child = heap[pointer];
                     var parentIndex = (pointer - 1)/2;
-                    Node Parent = heap[parentIndex]; //Maybe need to round down 
+                    Node Parent = heap[parentIndex]; 
                     if (Child.Cost < Parent.Cost)
                     {
                         Swap(parentIndex, pointer);
@@ -48,40 +47,6 @@
             }
         }
 
-        private void Validate()
-        {
-            if (heap.Count == 0)
-            {
-                return;
-            }
-            var lowCost = Root.Cost;
-            if (heap.Any(x => x.Cost < lowCost))
-            {
-                throw new InvalidOperationException();
-            }
-            for (int i = 0; i < count / 2; i++)
-            {
-                var l = 2 * i + 1;
-                if (l < count)
-                {
-                    if (heap[l].Cost < heap[i].Cost)
-                    {
-                        throw new InvalidOperationException();
-                    }
-
-                }
-                var r = 2 * i + 2;
-                if (r < count)
-                {
-                    if (heap[r].Cost < heap[i].Cost)
-                    {
-                        throw new InvalidOperationException();
-                    }
-
-                }
-            }
-
-        }
 
         public Node Remove()
         {
@@ -90,7 +55,6 @@
             heap.RemoveAt(count - 1);
             count--;
             PerculateDown();
-            Validate();
             return Root;
         }
         public void PerculateDown()
@@ -125,7 +89,6 @@
                 if (heap[pointer].Cost > heap[compare].Cost)
                 {
                     Swap(pointer, compare);
-                    //(heap[pointer], heap[compare]) = (heap[compare], heap[pointer]);
                     pointer = compare;
                 }
                 else
@@ -137,7 +100,6 @@
 
         public void Swap(int parentIndex, int childIndex)
         {
-            // Swap by tuple feature
             (heap[childIndex], heap[parentIndex]) = (heap[parentIndex], heap[childIndex]);
         }
     }

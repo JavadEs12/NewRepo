@@ -26,7 +26,7 @@
             else
             {
                 pointer = root;
-                string bitcount = Convert.ToString(count + 1, 2);  //converts integer value to its binary form 
+                string bitcount = Convert.ToString(count + 1, 2);  //converts integer value of last element in heap to its binary form 
                 for (int i = 1; i < bitcount.Length; i++)   //start from second element of binary to exclude the parent
                 {
                     if (bitcount[i] == '0')

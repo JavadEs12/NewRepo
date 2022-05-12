@@ -2,10 +2,10 @@
 {
     public class RandomNodeDictionaryGenerator
     {
-        public Dictionary<string, Node> Input(int numberOfElements)
+        public static Dictionary<string, Node> GenerateNodes(int numberOfElements)
         {
             Dictionary<string, Node> _nodes = new();
-            Random rnd = new Random(0);
+            Random rnd = new(0);
             for (int i = 0; i < numberOfElements; i += 1)
             {
                 Node node = new(i.ToString(), rnd.NextDouble());
