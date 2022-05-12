@@ -7,14 +7,14 @@
             Heap,
             ArrayHeap
         }
-        private HeapType heapType;
+        private readonly HeapType heapType;
 
         public HeapFactory(HeapType type)
         {
             heapType = type;
         }
 
-        public IHeap GetHeap()
+        public IHeap? GetHeap()
         {
             return heapType switch
             {

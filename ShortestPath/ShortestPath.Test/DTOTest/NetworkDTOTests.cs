@@ -9,8 +9,8 @@ namespace ShortestPath.Test.DTOTest
         [TestMethod]
         public void TestSerialize()
         {
-            Node orig = new Node("1", 0);
-            Node des = new Node("2", 0);
+            Node orig = new("1", 0);
+            Node des = new("2", 0);
             Arc arc = new() { Idno = "1", Orig = "1", Dest = "2", Cost = 10 };
             NetworkDTO networkDTO = new()
             {

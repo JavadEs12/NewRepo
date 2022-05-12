@@ -16,10 +16,10 @@
 
             // Type of heap for heap-interface is assigned here
             var path = new ShortestPath(new HeapFactory(HeapFactory.HeapType.ArrayHeap));
-            List<string> shortestPath = path.FindShortestPath(network, Origin, Destination);
+            List<string>? shortestPath = path.FindShortestPath(network, Origin, Destination);
             Print(shortestPath);
         }
-        private static void Print(List<string> shortestPath)
+        private static void Print(List<string>? shortestPath)
         {
             Console.WriteLine($"Sequence of shortest path elements are as:");
             foreach (string node in shortestPath)

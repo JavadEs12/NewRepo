@@ -9,7 +9,7 @@ namespace ShortestPath.Test.ArrayHeapTests
         public void ConstructorTest()
         {
             var numberOfElements = 1000;
-            var arrayHeap = new ArrayHeap(RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements));
+            ArrayHeap? arrayHeap = new(RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements));
             Assert.IsNotNull(arrayHeap);
             Assert.AreEqual(numberOfElements,arrayHeap.heap.Count);
         }
@@ -18,8 +18,8 @@ namespace ShortestPath.Test.ArrayHeapTests
         public void AddTest()
         {
             int numberOfElements = 1000;
-            var nodes = RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements);
-            var arrayHeap = new ArrayHeap();
+            Dictionary<string,Node>? nodes = RandomNodeDictionaryGenerator.GenerateNodes(numberOfElements);
+            ArrayHeap? arrayHeap = new();
             foreach (KeyValuePair<string,Node> node in nodes)
             {
                 arrayHeap.Add(node.Value);

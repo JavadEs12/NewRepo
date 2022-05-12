@@ -9,13 +9,14 @@
             string Destination = CheckInputAccuracy(Origin);
             return (Origin, Destination);
         }
-        private string CheckInputAccuracy(string origin = null)
+        private static string CheckInputAccuracy(string? origin = null)
         {
             while (true)
             {
                 try
                 {
-                    var input = Int16.Parse(Console.ReadLine());
+
+                    var input = Convert.ToInt16(Console.ReadLine());
                     if (origin == null && input >= 1 && input <= 6)
                     {
                         return input.ToString();

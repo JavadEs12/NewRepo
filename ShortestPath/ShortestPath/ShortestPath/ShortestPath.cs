@@ -2,26 +2,28 @@
 {
     public class ShortestPath
     {
-        public IHeap heap;
+        public IHeap? heap;
         public ShortestPath(HeapFactory factory)
         {
             heap = factory.GetHeap();
         }
-        public List<string> FindShortestPath(Network network, string origin, string destination)
+        public List<string>? FindShortestPath(Network network,
+                                              string origin,
+                                              string destination)
         {
             try
             {
                 InitializeHeap(network);
                 Dijkstra dijkstra = new();
-                var ExtractedNodes = dijkstra
+                Dictionary<string,Node>? ExtractedNodes = dijkstra
                     .UpdateNetworkProp(network, destination, heap);
                 List<string> ShortestPath = new();
                 ShortestPath.Add(origin);
-                var InitialNode = origin;
+                string? InitialNode = origin;
 
                 while (true)
                 {
-                    var FollowingNode = ExtractedNodes[InitialNode].Successor;
+                    string? FollowingNode = ExtractedNodes[InitialNode].Successor;
                     InitialNode = FollowingNode;
                     ShortestPath.Add(FollowingNode);
                     if (InitialNode == destination)

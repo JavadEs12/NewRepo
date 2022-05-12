@@ -1,5 +1,4 @@
-﻿
-namespace ShortestPath
+﻿namespace ShortestPath
 {
     public class NetworkDTO
     {
