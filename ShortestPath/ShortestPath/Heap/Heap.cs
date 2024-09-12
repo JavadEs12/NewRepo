@@ -1,10 +1,12 @@
 ﻿namespace ShortestPath
 {
-    public class Heap
+    public class Heap : IHeap
     {
-        public HeapNode root;
-        public HeapNode pointer;
+        public HeapNode? root;
+        public HeapNode? pointer;
         public int count;
+        public Node Root => new(root.ID, root.Cost);
+
         public Heap(Dictionary<string, Node> nodes)
         {
             count = 0;
@@ -13,9 +15,7 @@
                 Add(node.Value);
             }
         }
-
         public Heap() { }
-
         public void Add(Node node)
         {
             if (root == null)
@@ -26,7 +26,7 @@
             else
             {
                 pointer = root;
-                string bitcount = Convert.ToString(count + 1, 2);  //converts integer value to its binary form 
+                string bitcount = Convert.ToString(count + 1, 2);  //converts integer value of last element in heap to its binary form 
                 for (int i = 1; i < bitcount.Length; i++)   //start from second element of binary to exclude the parent
                 {
                     if (bitcount[i] == '0')
@@ -48,20 +48,13 @@
                 }
                 pointer.Cost = node.Cost;
                 pointer.ID = node.ID;
-
                 while (true)
                 {
                     if (pointer == root) { break; }
                     if (pointer.Cost < pointer.Parent.Cost)
-                    { //Switch data
-                        double tempCost = pointer.Cost;
-                        pointer.Cost = pointer.Parent.Cost;
-                        pointer.Parent.Cost = tempCost;
-
-                        string tempID = pointer.ID;
-                        pointer.ID = pointer.Parent.ID;
-                        pointer.Parent.ID = tempID;
-
+                    { //Swap by tuples
+                        (pointer.Cost, pointer.Parent.Cost) = (pointer.Parent.Cost, pointer.Cost);
+                        (pointer.ID, pointer.Parent.ID) = (pointer.Parent.ID, pointer.ID);
                         pointer = pointer.Parent;
                     }
                     else
@@ -72,7 +65,6 @@
                 count++;
             }
         }
-
         public Node Remove()
         {
             HeapNode output = root;
@@ -109,15 +101,13 @@
             {
                 root = null;
             }
-            Node node = new Node(output.ID, output.Cost);  //convert Heap to Node type
+            Node node = new(output.ID, output.Cost);  //convert Heap to Node type
             return node;
         }
-
         private void Heapify()
         {
             HeapNode compare;
             pointer = root;
-
             while (true)
             {
                 if (pointer.Left == null)
@@ -141,13 +131,9 @@
                 }
                 if (pointer.Cost > compare.Cost)
                 {
-                    double tempCost = pointer.Cost;
-                    pointer.Cost = compare.Cost;
-                    compare.Cost = tempCost;
-
-                    string tempID = pointer.ID;
-                    pointer.ID = compare.ID;
-                    compare.ID = tempID;
+                    //Swap by tuples
+                    (pointer.Cost, compare.Cost) = (compare.Cost, pointer.Cost);
+                    (pointer.ID, compare.ID) = (compare.ID, pointer.ID);
                     pointer = compare;
                 }
                 else

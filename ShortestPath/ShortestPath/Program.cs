@@ -1,59 +1,30 @@
-﻿using Newtonsoft.Json;
-
-namespace ShortestPath
+﻿namespace ShortestPath
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Arc obj = new Arc();
-            DijkstraByNodeHeap obj2 = new DijkstraByNodeHeap();
+            var input = File.ReadAllText("ShortestPathInput.txt");
+            var deserializer = new JsonDeserializer();
+            List<Arc> arcs = deserializer.Deserialize(input);
 
-            Program obj3 = new Program();
-            obj3.InputData(obj2);
-            Node obj4 = new Node();
-            Implementation(obj, obj2, obj4);
+            var networkBuilder = new NetworkBuilder();
+            var network = networkBuilder.BuildNetwork(arcs);
+
+            var userInput = new UserInput();
+            (string Origin, string Destination) = userInput.ReadUserInput();
+
+            // Type of heap for heap-interface is assigned here
+            var path = new ShortestPath(new HeapFactory(HeapFactory.HeapType.ArrayHeap));
+            List<string>? shortestPath = path.FindShortestPath(network, Origin, Destination);
+            Print(shortestPath);
         }
-        static void Implementation(Arc obj, DijkstraByNodeHeap obj2, Node obj4)
+        private static void Print(List<string>? shortestPath)
         {
-            obj.arcs = JsonConvert.DeserializeObject<List<Arc>>(File.ReadAllText("D:/ShortestPath/ShortestPathInput.txt"));
-            obj.NodeAssignment(obj4);
-
-            obj2.ShortestPath(obj4, obj);
-        }
-
-        private void InputData(DijkstraByNodeHeap obj2)
-        {
-            Console.WriteLine("Please choose your Origin-Destination couple\nYou are allowed to choose numbers between 1-6");
-            obj2.Origin = InputAccuracy(obj2);
-            obj2.Destination = InputAccuracy(obj2);
-            obj2.MainDestination = obj2.Destination;
-        }
-
-        private string InputAccuracy(DijkstraByNodeHeap obj2)
-        {
-            while (true)
+            Console.WriteLine($"Sequence of shortest path elements are as:");
+            foreach (string node in shortestPath)
             {
-                int input = Int16.Parse(Console.ReadLine());
-                if (obj2.Origin == null && input >= 1 && input <= 6)
-                {
-                    return input.ToString();
-                }
-                else if (obj2.Origin != null && input >= 1 && input <= 6)
-                {
-                    if (input.ToString() == obj2.Origin)
-                    {
-                        Console.WriteLine("Entered number is repeated, please try another number for destination");
-                    }
-                    else
-                    {
-                        return input.ToString();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Wrong input data, Please enter a number between 1-6");
-                }
+                Console.WriteLine(node);
             }
         }
     }
